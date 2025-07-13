@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --main-dark-bg: rgb(22 23 28);
+  --card-dark-bg: rgb(34 35 40);
+  --custom-bg-dark: hsl(30deg 0% 7.1% / 1);
+  --width-1536: 1536px;
+  --width-672: 672px;
+  --height-300: 300px;
+  --supabase-com-alabaster: var(--color-grey-98, #fafafa);
+  --font-family-Font-1: "Helvetica Neue";
+  --font-weight-500: 500;
+  --line-height-72: 72px;
+  --Colors-Cyan: var(--Colors-Cyan, #32ade6);
+  --line-height-28: 28px;
+  --width-576: 576px;
+  --opacity-10: 0.1;
+  --stroke-weight-1: 1px;
+  --color-grey-16: #292929;
+  --color-white-02: rgba(255, 255, 255, 0);
+  --line-height-20: 20px;
+  --item-spacing-xs: 8px;
+}
