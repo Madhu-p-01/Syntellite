@@ -1,4 +1,5 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 const blogPosts = [
   {
@@ -26,32 +27,40 @@ const blogPosts = [
 
 const BlogPage = () => {
   return (
-    <div className="bg-[--main-dark-bg] text-white py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-bold">Our Blog</h1>
-          <p className="text-lg sm:text-xl text-gray-400 mt-4">
-            Stay up-to-date with the latest news and trends in technology.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map((post, index) => (
-            <div key={index} className="bg-[--card-dark-bg] rounded-xl overflow-hidden group border border-gray-800 hover:border-sky-400/50 transition-colors">
-              <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
-                <p className="text-gray-400 mb-4">{post.description}</p>
-                <div className="flex items-center text-sm text-gray-500">
-                  <span>{post.author}</span>
-                  <span className="mx-2">&bull;</span>
-                  <span>{post.date}</span>
+    <>
+      <SEO
+        title="Our Blog | Syntellite"
+        description="Stay up-to-date with the latest news and trends in technology, web development, and UI/UX design from the experts at Syntellite."
+        name="Syntellite"
+        type="website"
+      />
+      <div className="bg-[--main-dark-bg] text-white py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h1 className="text-4xl sm:text-5xl font-bold">Our Blog</h1>
+            <p className="text-lg sm:text-xl text-gray-400 mt-4">
+              Stay up-to-date with the latest news and trends in technology.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {blogPosts.map((post, index) => (
+              <div key={index} className="bg-[--card-dark-bg] rounded-xl overflow-hidden group border border-gray-800 hover:border-sky-400/50 transition-colors">
+                <img src={post.image} alt={`Featured image for the blog post titled "${post.title}"`} className="w-full h-48 object-cover" />
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
+                  <p className="text-gray-400 mb-4">{post.description}</p>
+                  <div className="flex items-center text-sm text-gray-500">
+                    <span>{post.author}</span>
+                    <span className="mx-2">&bull;</span>
+                    <span>{post.date}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

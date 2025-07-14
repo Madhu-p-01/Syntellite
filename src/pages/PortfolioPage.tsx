@@ -1,4 +1,5 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 const projects = [
   {
@@ -29,34 +30,42 @@ const projects = [
 
 const PortfolioPage = () => {
   return (
-    <div className="bg-[--main-dark-bg] text-white py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-bold">Our Portfolio</h1>
-          <p className="text-lg sm:text-xl text-gray-400 mt-4">
-            A selection of our finest work.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <div key={index} className="bg-[--card-dark-bg] rounded-xl overflow-hidden group border border-gray-800 hover:border-sky-400/50 transition-colors">
-              <img src={project.image} alt={project.title} className="w-full h-64 object-cover" />
-              <div className="p-6">
-                <h3 className="text-2xl font-semibold mb-2">{project.title}</h3>
-                <p className="text-gray-400 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span key={tagIndex} className="bg-gray-800 text-gray-300 px-2 py-1 rounded-full text-xs">
-                      {tag}
-                    </span>
-                  ))}
+    <>
+      <SEO
+        title="Our Portfolio | Syntellite"
+        description="Browse a selection of our finest work, including e-commerce platforms, mobile banking apps, AI-powered chatbots, and more."
+        name="Syntellite"
+        type="website"
+      />
+      <div className="bg-[--main-dark-bg] text-white py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h1 className="text-4xl sm:text-5xl font-bold">Our Portfolio</h1>
+            <p className="text-lg sm:text-xl text-gray-400 mt-4">
+              A selection of our finest work.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {projects.map((project, index) => (
+              <div key={index} className="bg-[--card-dark-bg] rounded-xl overflow-hidden group border border-gray-800 hover:border-sky-400/50 transition-colors">
+                <img src={project.image} alt={`Screenshot of the ${project.title} project`} className="w-full h-64 object-cover" />
+                <div className="p-6">
+                  <h3 className="text-2xl font-semibold mb-2">{project.title}</h3>
+                  <p className="text-gray-400 mb-4">{project.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag, tagIndex) => (
+                      <span key={tagIndex} className="bg-gray-800 text-gray-300 px-2 py-1 rounded-full text-xs">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
