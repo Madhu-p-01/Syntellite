@@ -1,14 +1,11 @@
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
-  RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.html [L]
-</IfModule>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
 
-<IfModule mod_mime.c>
-  AddType text/css .css
-  AddType application/javascript .js
-  AddType application/javascript .mjs
-</IfModule>
+# Set MIME types
+AddType text/css .css
+AddType application/javascript .js
+AddType application/javascript .mjs
