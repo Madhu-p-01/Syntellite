@@ -3,3 +3,7 @@
   %{REQUEST_FILENAME} !-f RewriteCond %{REQUEST_FILENAME} !-d RewriteCond
   %{REQUEST_FILENAME} !-l RewriteRule . /index.html [L]
 </IfModule>
+AddType application/javascript .js
+AddType application/javascript .mjs
+AddType application/javascript .jsx
+AddType application/javascript .tsx
