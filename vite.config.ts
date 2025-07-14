@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/", // This tells Vite to assume the app is at the root of the domain.
-  // If you were deploying to syntellite.com/app/, it would be '/app/'.
+  base: "/",
+  // If you've placed .htaccess directly in the 'public' folder
+  publicDir: "public", // This is usually the default, but confirm.
 });
