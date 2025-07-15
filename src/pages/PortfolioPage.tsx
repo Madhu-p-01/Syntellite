@@ -36,6 +36,7 @@ const PortfolioPage = () => {
         description="Browse a selection of our finest work, including e-commerce platforms, mobile banking apps, AI-powered chatbots, and more."
         name="Syntellite"
         type="website"
+        canonical="https://syntellite.com/portfolio"
       />
       <div className="bg-[--main-dark-bg] text-white py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

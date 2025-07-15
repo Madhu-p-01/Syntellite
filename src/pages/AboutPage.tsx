@@ -9,6 +9,7 @@ const AboutPage = () => {
         description="Learn about the mission, values, and team behind Syntellite. We are a passionate group of engineers, designers, and strategists dedicated to building exceptional software."
         name="Syntellite"
         type="website"
+        canonical="https://syntellite.com/about"
       />
       <div className="bg-[--main-dark-bg] text-white py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

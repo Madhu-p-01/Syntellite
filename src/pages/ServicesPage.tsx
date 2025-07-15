@@ -56,6 +56,7 @@ const ServicesPage = () => {
         description="Explore the wide range of services offered by Syntellite, including custom software development, mobile app development, cloud solutions, cybersecurity, and more."
         name="Syntellite"
         type="website"
+        canonical="https://syntellite.com/services"
       />
       <div className="bg-[--main-dark-bg] text-white py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

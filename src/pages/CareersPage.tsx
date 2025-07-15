@@ -27,6 +27,7 @@ const CareersPage = () => {
         description="Join our team and help us build the future of software. Explore our open positions for frontend, backend, and DevOps engineers."
         name="Syntellite"
         type="website"
+        canonical="https://syntellite.com/careers"
       />
       <div className="bg-[--main-dark-bg] text-white py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

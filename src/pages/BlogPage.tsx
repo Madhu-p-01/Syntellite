@@ -33,6 +33,7 @@ const BlogPage = () => {
         description="Stay up-to-date with the latest news and trends in technology, web development, and UI/UX design from the experts at Syntellite."
         name="Syntellite"
         type="website"
+        canonical="https://syntellite.com/blog"
       />
       <div className="bg-[--main-dark-bg] text-white py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

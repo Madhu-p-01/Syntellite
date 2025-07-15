@@ -10,6 +10,7 @@ const ContactPage = () => {
         description="Get in touch with the team at Syntellite. We'd love to hear from you."
         name="Syntellite"
         type="website"
+        canonical="https://syntellite.com/contact"
       />
       <div className="bg-[--main-dark-bg] text-white py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

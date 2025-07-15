@@ -15,6 +15,7 @@ const HomePage = () => {
         description="Syntellite is a leading software development company specializing in custom web and mobile applications, UI/UX design, and scalable IT solutions for businesses of all sizes."
         name="Syntellite"
         type="website"
+        canonical="https://syntellite.com/"
       />
       <Hero />
       <TechLogos />
