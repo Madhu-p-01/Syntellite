@@ -111,90 +111,90 @@ const MobileFeatureCard: React.FC<FeatureCardProps> = ({ icon, title, descriptio
 
 const serviceCards = [
     {
-        icon: <Code className="w-5 h-5" />,
+        icon: <Code className="w-5 h-5" aria-label="Custom Software Development Icon" />,
         title: "Custom Software Development",
-        description: "Build robust, scalable applications tailored to your business needs.",
+        description: "We build robust, scalable applications tailored to your specific business needs, ensuring a perfect fit for your goals.",
         features: [
-          { icon: <Layers className="w-4 h-4" />, text: "Modular architecture" },
-          { icon: <Check className="w-4 h-4" />, text: "Full ownership" },
-          { icon: <Zap className="w-4 h-4" />, text: "Transparent process" },
+          { icon: <Layers className="w-4 h-4" />, text: "Modular Architecture" },
+          { icon: <Check className="w-4 h-4" />, text: "Full Code Ownership" },
+          { icon: <Zap className="w-4 h-4" />, text: "Transparent Process" },
         ],
         background: <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-sky-500/10 rounded-full blur-2xl" />
       },
       {
-        icon: <Palette className="w-5 h-5" />,
+        icon: <Palette className="w-5 h-5" aria-label="UI/UX Design Systems Icon" />,
         title: "UI/UX Design Systems",
-        description: "Intuitive, accessible, and delightful user experiences built from scratch or based on your vision.",
+        description: "We create intuitive and delightful user experiences, from initial concept to a complete, ready-to-use component library.",
         features: [
-          { icon: <Palette className="w-4 h-4" />, text: "Figma-first design" },
-          { icon: <Box className="w-4 h-4" />, text: "Component libraries" },
-          { icon: <BrainCircuit className="w-4 h-4" />, text: "User-first approach" },
+          { icon: <Palette className="w-4 h-4" />, text: "Figma-First Design" },
+          { icon: <Box className="w-4 h-4" />, text: "Component Libraries" },
+          { icon: <BrainCircuit className="w-4 h-4" />, text: "User-First Approach" },
         ],
         background: <div className="absolute top-0 left-0 w-full h-full opacity-20" style={{backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
       },
       {
-        icon: <Cloud className="w-5 h-5" />,
+        icon: <Cloud className="w-5 h-5" aria-label="Cloud & DevOps Icon" />,
         title: "Cloud & DevOps",
-        description: "Automate your infrastructure and scale seamlessly with cloud-native tools.",
+        description: "Automate your infrastructure and scale seamlessly with our expertise in cloud-native tools and CI/CD pipelines.",
         features: [
           { icon: <Cloud className="w-4 h-4" />, text: "AWS, GCP, Azure" },
-          { icon: <Zap className="w-4 h-4" />, text: "CI/CD pipelines" },
+          { icon: <Zap className="w-4 h-4" />, text: "CI/CD Pipelines" },
           { icon: <Code className="w-4 h-4" />, text: "Infrastructure as Code" },
         ],
         background: <div className="absolute -top-16 -left-16 w-48 h-48 border-4 border-purple-500/20 rounded-full" />
       },
       {
-        icon: <Share2 className="w-5 h-5" />,
+        icon: <Share2 className="w-5 h-5" aria-label="API & Microservices Icon" />,
         title: "API & Microservices",
-        description: "Architect and deploy scalable APIs and microservices.",
+        description: "We architect and deploy scalable APIs and microservices to power your applications and connect your systems.",
         features: [
-          { icon: <Network className="w-4 h-4" />, text: "REST, GraphQL" },
-          { icon: <Server className="w-4 h-4" />, text: "Containerized services" },
-          { icon: <Cpu className="w-4 h-4" />, text: "Domain-driven design" },
+          { icon: <Network className="w-4 h-4" />, text: "REST & GraphQL" },
+          { icon: <Server className="w-4 h-4" />, text: "Containerized Services" },
+          { icon: <Cpu className="w-4 h-4" />, text: "Domain-Driven Design" },
         ],
         background: <div className="absolute bottom-0 right-0 w-full h-1/2 bg-gradient-to-t from-green-500/10 to-transparent" />
       },
       {
-        icon: <Bot className="w-5 h-5" />,
+        icon: <Bot className="w-5 h-5" aria-label="AI & Automation Icon" />,
         title: "AI & Automation",
-        description: "Add intelligence with ML models, automation pipelines, and chatbot integrations.",
+        description: "Integrate intelligence into your applications with ML models, automation pipelines, and custom chatbot solutions.",
         features: [
-          { icon: <Bot className="w-4 h-4" />, text: "OpenAI, HuggingFace" },
-          { icon: <BarChart className="w-4 h-4" />, text: "Predictive analytics" },
-          { icon: <BrainCircuit className="w-4 h-4" />, text: "RAG systems / AI agents" },
+          { icon: <Bot className="w-4 h-4" />, text: "OpenAI & HuggingFace" },
+          { icon: <BarChart className="w-4 h-4" />, text: "Predictive Analytics" },
+          { icon: <BrainCircuit className="w-4 h-4" />, text: "RAG & AI Agents" },
         ],
         background: <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl" />
       },
       {
-        icon: <Gauge className="w-5 h-5" />,
+        icon: <Gauge className="w-5 h-5" aria-label="Performance Optimization Icon" />,
         title: "Performance Optimization",
-        description: "Diagnose and improve app speed, reliability, and resource efficiency.",
+        description: "We diagnose and improve your application's speed, reliability, and resource efficiency for a better user experience.",
         features: [
-          { icon: <BarChart className="w-4 h-4" />, text: "Lighthouse scoring" },
-          { icon: <Box className="w-4 h-4" />, text: "Bundle analysis" },
-          { icon: <Zap className="w-4 h-4" />, text: "CDN & edge tuning" },
+          { icon: <BarChart className="w-4 h-4" />, text: "Lighthouse Scoring" },
+          { icon: <Box className="w-4 h-4" />, text: "Bundle Analysis" },
+          { icon: <Zap className="w-4 h-4" />, text: "CDN & Edge Tuning" },
         ],
         background: <div className="absolute top-0 right-0 w-24 h-24 bg-red-500/10 rounded-bl-full" />
       },
       {
-        icon: <Smartphone className="w-5 h-5" />,
-        title: "Cross-platform Apps",
-        description: "Build mobile & desktop apps using a shared codebase.",
+        icon: <Smartphone className="w-5 h-5" aria-label="Cross-platform Apps Icon" />,
+        title: "Cross-Platform Apps",
+        description: "Build beautiful and performant mobile and desktop applications from a single, shared codebase.",
         features: [
-          { icon: <Smartphone className="w-4 h-4" />, text: "Flutter, React Native" },
-          { icon: <AppWindow className="w-4 h-4" />, text: "Electron apps" },
-          { icon: <Radio className="w-4 h-4" />, text: "Auto-sync & offline support" },
+          { icon: <Smartphone className="w-4 h-4" />, text: "Flutter & React Native" },
+          { icon: <AppWindow className="w-4 h-4" />, text: "Electron Apps" },
+          { icon: <Radio className="w-4 h-4" />, text: "Offline & Sync Support" },
         ],
         background: <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-yellow-500/30 to-transparent" />
       },
       {
-        icon: <ShoppingCart className="w-5 h-5" />,
+        icon: <ShoppingCart className="w-5 h-5" aria-label="eCommerce & Integrations Icon" />,
         title: "eCommerce & Integrations",
-        description: "Shopify, WooCommerce, Stripe, Razorpay, WhatsApp, CRM & ERP integrations.",
+        description: "We provide end-to-end eCommerce solutions and seamless integrations with payment gateways, CRMs, and ERPs.",
         features: [
-          { icon: <Store className="w-4 h-4" />, text: "End-to-end store builds" },
-          { icon: <Lock className="w-4 h-4" />, text: "Payment gateways" },
-          { icon: <Share2 className="w-4 h-4" />, text: "API-based automation" },
+          { icon: <Store className="w-4 h-4" />, text: "End-to-End Store Builds" },
+          { icon: <Lock className="w-4 h-4" />, text: "Payment Gateways" },
+          { icon: <Share2 className="w-4 h-4" />, text: "API-Based Automation" },
         ],
         background: <div className="absolute top-10 left-10 w-20 h-20 bg-green-500/10 rounded-full" />
       },
@@ -243,8 +243,8 @@ export const FeaturesGrid: React.FC = () => {
           Our Services
         </motion.div>
         <motion.h2 variants={itemVariants} className="text-[35px] leading-[43px] font-medium max-w-[448px] mt-4">
-          <span className="text-white">Everything you need to</span>
-          <span className="text-gray-400"> build your product.
+          <span className="text-white">Build Your Vision</span>
+          <span className="text-gray-400"> with Our Expertise.
           </span>
         </motion.h2>
       </div>

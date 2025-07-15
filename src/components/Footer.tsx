@@ -49,33 +49,6 @@ const SocialIcon: React.FC<{
 );
 
 const Footer = () => {
-  const footerSections = [
-    {
-      title: "Company",
-      links: ["About", "Services", "Testimonials", "Contact"],
-    },
-    {
-      title: "Services",
-      links: [
-        "Custom Software Development",
-        "Mobile App Development",
-        "Cloud Solutions",
-        "Cybersecurity",
-        "AI & Machine Learning",
-        "Data Analytics",
-        "UI/UX Design",
-      ],
-    },
-    {
-      title: "Resources",
-      links: ["Blog", "Case Studies", "Whitepapers"],
-    },
-    {
-      title: "Legal",
-      links: ["Privacy Policy", "Terms of Service"],
-    },
-  ];
-
   return (
     <footer className="bg-[--main-dark-bg] w-full">
       {/* Security Banner */}
@@ -84,13 +57,13 @@ const Footer = () => {
           {/* Security Statement */}
           <div className="flex items-center gap-2 text-center sm:text-left">
             <span className="text-white text-[14px] font-medium leading-5">
-              We protect your data.
+              Your Security is Our Priority.
             </span>
             <a
               href="#"
               className="text-[#59bfef] text-[14px] font-medium leading-5 hover:underline"
             >
-              More on Security
+              Learn More
             </a>
           </div>
 
@@ -101,17 +74,11 @@ const Footer = () => {
               <span className="text-white text-[14px] font-medium leading-5">
                 SOC2 Type 2
               </span>
-              <span className="text-[#898989] text-[14px] font-medium leading-5">
-                Certified
-              </span>
             </div>
             <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-white" />
               <span className="text-white text-[14px] font-medium leading-5">
-                HIPAA
-              </span>
-              <span className="text-[#898989] text-[14px] font-medium leading-5">
-                Compliant
+                HIPAA Compliant
               </span>
             </div>
           </div>
@@ -136,79 +103,53 @@ const Footer = () => {
             <div className="flex items-center gap-5">
               <SocialIcon
                 icon={<Twitter className="w-[22px] h-[22px]" />}
-                href="#"
+                href="https://twitter.com/syntellite"
               />
               <SocialIcon
                 icon={<Github className="w-[22px] h-[22px]" />}
-                href="#"
+                href="https://github.com/syntellite"
               />
               <SocialIcon
                 icon={<Linkedin className="w-[22px] h-[22px]" />}
-                href="#"
+                href="https://linkedin.com/company/syntellite"
               />
             </div>
           </div>
 
-
-          {/* Solutions */}
+          {/* Company */}
           <div className="col-span-1 flex flex-col gap-4">
-            <FooterSection title="Solutions">
-              <FooterLink>AI Builders</FooterLink>
-              <FooterLink>No Code</FooterLink>
-              <FooterLink>Beginners</FooterLink>
-              <FooterLink>Developers</FooterLink>
-              <FooterLink>Postgres Devs</FooterLink>
-              <FooterLink>Switch From Neon</FooterLink>
-              <FooterLink>Startups</FooterLink>
-              <FooterLink>Enterprise</FooterLink>
+            <FooterSection title="Company">
+              <FooterLink href="/about">About</FooterLink>
+              <FooterLink href="/blog">Blog</FooterLink>
+              <FooterLink href="/careers">Careers</FooterLink>
+              <FooterLink href="/contact">Contact</FooterLink>
+            </FooterSection>
+          </div>
+
+          {/* Services */}
+          <div className="col-span-1 flex flex-col gap-4">
+            <FooterSection title="Services">
+              <FooterLink href="/services">Custom Software</FooterLink>
+              <FooterLink href="/services">Mobile Apps</FooterLink>
+              <FooterLink href="/services">Cloud & DevOps</FooterLink>
+              <FooterLink href="/services">AI & Automation</FooterLink>
             </FooterSection>
           </div>
 
           {/* Resources */}
           <div className="col-span-1 flex flex-col gap-4">
             <FooterSection title="Resources">
-              <FooterLink>Blog</FooterLink>
-              <FooterLink>Support</FooterLink>
+              <FooterLink>Case Studies</FooterLink>
+              <FooterLink>Whitepapers</FooterLink>
               <FooterLink>System Status</FooterLink>
-              <FooterLink>Become a Partner</FooterLink>
-              <FooterLink>Integrations</FooterLink>
-              <FooterLink>Brand Assets</FooterLink>
-              <FooterLink>Security & Compliance</FooterLink>
-              <FooterLink>DPA</FooterLink>
-              <FooterLink>SOC2</FooterLink>
-              <FooterLink>HIPAA</FooterLink>
             </FooterSection>
           </div>
 
-          {/* Developers */}
+          {/* Legal */}
           <div className="col-span-1 flex flex-col gap-4">
-            <FooterSection title="Developers">
-              <FooterLink>Documentation</FooterLink>
-              <FooterLink>Supabase UI</FooterLink>
-              <FooterLink>Changelog</FooterLink>
-              <FooterLink>Careers</FooterLink>
-              <FooterLink>Contributing</FooterLink>
-              <FooterLink>Open Source</FooterLink>
-              <FooterLink>SupaSquad</FooterLink>
-              <FooterLink>DevTo</FooterLink>
-              <FooterLink>RSS</FooterLink>
-            </FooterSection>
-          </div>
-
-          {/* Company */}
-          <div className="col-span-1 flex flex-col gap-4">
-            <FooterSection title="Company">
-              <FooterLink>Company</FooterLink>
-              <FooterLink>General Availability</FooterLink>
-              <FooterLink>Terms of Service</FooterLink>
+            <FooterSection title="Legal">
               <FooterLink>Privacy Policy</FooterLink>
-              <FooterLink>Privacy Settings</FooterLink>
-              <FooterLink>Acceptable Use Policy</FooterLink>
-              <FooterLink>Support Policy</FooterLink>
-              <FooterLink>Service Level Agreement</FooterLink>
-              <FooterLink>Humans.txt</FooterLink>
-              <FooterLink>Lawyers.txt</FooterLink>
-              <FooterLink>Security.txt</FooterLink>
+              <FooterLink>Terms of Service</FooterLink>
             </FooterSection>
           </div>
         </div>

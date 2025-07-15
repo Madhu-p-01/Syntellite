@@ -10,12 +10,12 @@ const OurProcess = () => {
             Our Process
           </div>
           <h2 className="text-[35px] leading-[43px] font-medium max-w-[448px] mt-4">
-            <span className="text-white">A streamlined approach to</span>
-            <span className="text-gray-400"> delivering excellence.</span>
+            <span className="text-white">A Streamlined Approach</span>
+            <span className="text-gray-400"> to Delivering Excellence.</span>
           </h2>
         </div>
         <div>
-          <img src={ourProcessImage} alt="Our Process" className="w-full h-auto" />
+          <img src={ourProcessImage} alt="A diagram illustrating our streamlined development process, from discovery to deployment." className="w-full h-auto" />
         </div>
       </div>
     </section>

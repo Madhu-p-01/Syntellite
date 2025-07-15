@@ -61,7 +61,7 @@ const TestimonialCard: React.FC<{
         "{quote}"
       </p>
       <div className="flex items-center mt-auto">
-        <img src={avatar} alt={name} className="w-12 h-12 rounded-full mr-4" />
+        <img src={avatar} alt={`Avatar of ${name}`} className="w-12 h-12 rounded-full mr-4" />
         <div>
           <p className="font-semibold text-white">{name}</p>
           <p className="text-gray-400 text-sm">{title}</p>
@@ -83,8 +83,8 @@ const Testimonials = () => {
             Testimonials
           </div>
           <h2 className="text-[35px] leading-[43px] font-medium max-w-[448px] mt-4">
-            <span className="text-white">What Our Clients</span>
-            <span className="text-gray-400"> Say</span>
+            <span className="text-white">What Our Clients Say</span>
+            <span className="text-gray-400"> About Us</span>
           </h2>
         </div>
 
