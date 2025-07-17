@@ -1,16 +1,4 @@
 RewriteEngine On
-RewriteBase /
-
-# Add MIME types for required file types
-AddType text/css .css
-AddType application/javascript .js
-AddType application/json .webmanifest
-
-# If a requested file or folder exists in the 'dist' directory, serve it.
-RewriteCond %{DOCUMENT_ROOT}/dist%{REQUEST_URI} -f [OR]
-RewriteCond %{DOCUMENT_ROOT}/dist%{REQUEST_URI} -d
-RewriteRule ^(.*)$ /dist/$1 [L]
-
-# For all other requests, serve the main index.html file from the 'dist' directory.
-# This is the fallback for Single Page Application (SPA) routes.
-RewriteRule . /dist/index.html [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.html [L]
