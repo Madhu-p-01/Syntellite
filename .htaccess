@@ -1,11 +1,17 @@
 RewriteEngine On
 RewriteBase /
-RewriteRule ^index\.html$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.html [L]
 
-# Set MIME types
+# Set MIME types, including for the webmanifest
 AddType text/css .css
 AddType application/javascript .js
-AddType application/javascript .mjs
+AddType application/json .webmanifest
+
+# Rewrite all requests to the /dist subdirectory
+RewriteCond %{REQUEST_URI} !^/dist/
+RewriteRule ^(.*)$ /dist/$1 [L]
+
+# Handle Single Page Application (SPA) routing
+# If a request doesn't match a file or directory in /dist, serve the app's index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^dist/.*$ /dist/index.html [L]

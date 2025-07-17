@@ -1,0 +1,6 @@
+# Allow all search engine crawlers
+User-agent: *
+Allow: /
+
+# Point to the sitemap
+Sitemap: https://syntellite.com/sitemap.xml
