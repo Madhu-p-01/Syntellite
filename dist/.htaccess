@@ -1,20 +1,21 @@
 # Enable rewrite engine
 RewriteEngine On
+RewriteBase /coming-soon/
 
 # Handle SPA routing - redirect all requests to index.html
 # unless the request is for an actual file or directory
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} !^/sitemap\.xml$
-RewriteCond %{REQUEST_URI} !^/robots\.txt$
-RewriteCond %{REQUEST_URI} !^/favicon\.ico$
-RewriteCond %{REQUEST_URI} !^/api/
+RewriteCond %{REQUEST_URI} !^/coming-soon/sitemap\.xml$
+RewriteCond %{REQUEST_URI} !^/coming-soon/robots\.txt$
+RewriteCond %{REQUEST_URI} !^/coming-soon/favicon\.ico$
+RewriteCond %{REQUEST_URI} !^/coming-soon/api/
 RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|map|json)$
-RewriteRule ^(.*)$ /index.html [L,QSA]
+RewriteRule ^(.*)$ index.html [L,QSA]
 
 # Explicit error document handling
-ErrorDocument 404 /index.html
-ErrorDocument 403 /index.html
+ErrorDocument 404 /coming-soon/index.html
+ErrorDocument 403 /coming-soon/index.html
 
 # Force HTTPS (optional - uncomment if needed)
 # RewriteCond %{HTTPS} off

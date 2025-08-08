@@ -1,72 +1,244 @@
-import React from 'react';
-import SEO from '../components/SEO';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import React from "react";
+import SEO from "../components/SEO";
+import { Phone, Mail, MapPin, MessageCircle, Clock, Users } from "lucide-react";
 
 const ContactPage = () => {
   return (
     <>
       <SEO
-        title="Contact Us | Syntellite"
-        description="Get in touch with the team at Syntellite. We'd love to hear from you."
+        title="Contact Us | Syntellite Innovation Lab"
+        description="Get in touch with Syntellite Innovations. Let's turn your bold ideas into engineered realities together."
         name="Syntellite"
         type="website"
         canonical="https://syntellite.com/contact"
       />
-      <div className="bg-[--main-dark-bg] text-white py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl sm:text-5xl font-bold">Contact Us</h1>
-            <p className="text-lg sm:text-xl text-gray-400 mt-4">
-              We'd love to hear from you.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-            <div className="bg-[--card-dark-bg] p-8 rounded-xl border border-gray-800">
-              <h2 className="text-2xl font-semibold mb-6">Get in Touch</h2>
-              <form>
-                <div className="mb-4">
-                  <label htmlFor="name" className="block text-gray-400 mb-2">Name</label>
-                  <input type="text" id="name" className="w-full bg-gray-800 border border-gray-700 rounded-md py-2 px-3 text-white focus:outline-none focus:border-sky-400" />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="email" className="block text-gray-400 mb-2">Email</label>
-                  <input type="email" id="email" className="w-full bg-gray-800 border border-gray-700 rounded-md py-2 px-3 text-white focus:outline-none focus:border-sky-400" />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="message" className="block text-gray-400 mb-2">Message</label>
-                  <textarea id="message" rows={4} className="w-full bg-gray-800 border border-gray-700 rounded-md py-2 px-3 text-white focus:outline-none focus:border-sky-400"></textarea>
-                </div>
-                <button type="submit" className="bg-sky-500 text-white px-6 py-3 rounded-md hover:bg-sky-600 transition-colors duration-200">
-                  Send Message
-                </button>
-              </form>
+      <div className="bg-black text-white">
+        {/* Hero Section */}
+        <div className="pt-24">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-left mb-16">
+              <div className="text-xs text-blue-400 uppercase tracking-wider mb-4">
+                <span className="font-bold italic">CONTACT</span>{" "}
+                <span className="font-medium italic">SYNTELLITE</span>
+              </div>
+              <h1 className="text-4xl lg:text-6xl font-bold leading-tight mb-6">
+                Let's Build Something Amazing Together
+              </h1>
+              <p className="text-xl text-gray-400 max-w-3xl">
+                Ready to turn your bold ideas into engineered realities? Get in
+                touch with our innovation lab and let's start building.
+              </p>
             </div>
-            <div className="space-y-8">
-              <div className="flex items-start gap-4">
-                <div className="bg-gray-800 p-3 rounded-full">
-                  <MapPin className="w-6 h-6 text-sky-400" />
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="py-16">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+              {/* Contact Form */}
+              <div className="bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-3xl p-8 lg:p-12">
+                <h2 className="text-3xl font-bold mb-8">Get in Touch</h2>
+                <form className="space-y-6">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-gray-300 mb-3 font-medium"
+                    >
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      className="w-full bg-white/5 border border-gray-600 rounded-xl py-4 px-4 text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all"
+                      placeholder="Your full name"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-gray-300 mb-3 font-medium"
+                    >
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      className="w-full bg-white/5 border border-gray-600 rounded-xl py-4 px-4 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all"
+                      placeholder="your.email@example.com"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="project"
+                      className="block text-gray-300 mb-3 font-medium"
+                    >
+                      Project Type
+                    </label>
+                    <select
+                      id="project"
+                      className="w-full bg-white/5 border border-gray-600 rounded-xl py-4 px-4 text-white focus:outline-none focus:border-pink-400 focus:ring-2 focus:ring-pink-400/20 transition-all"
+                    >
+                      <option value="">Select project type</option>
+                      <option value="web-development">Web Development</option>
+                      <option value="mobile-app">Mobile App</option>
+                      <option value="iot-hardware">IoT & Hardware</option>
+                      <option value="automation">System Automation</option>
+                      <option value="consulting">Consulting & Strategy</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="block text-gray-300 mb-3 font-medium"
+                    >
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      rows={5}
+                      className="w-full bg-white/5 border border-gray-600 rounded-xl py-4 px-4 text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all resize-none"
+                      placeholder="Tell us about your project and how we can help..."
+                    ></textarea>
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 text-white font-semibold py-4 px-8 rounded-xl hover:from-purple-600 hover:via-blue-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-[1.02]"
+                  >
+                    Send Message
+                  </button>
+                </form>
+              </div>
+
+              {/* Contact Information */}
+              <div className="space-y-8">
+                {/* Contact Methods */}
+                <div className="space-y-6">
+                  <h2 className="text-3xl font-bold mb-8">
+                    Contact Information
+                  </h2>
+
+                  {/* Email */}
+                  <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20 rounded-2xl p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
+                        <Mail className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-semibold text-blue-400 mb-2">
+                          Email Us
+                        </h3>
+                        <p className="text-gray-300">contact@syntellite.com</p>
+                        <p className="text-gray-400 text-sm mt-1">
+                          We'll respond within 24 hours
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phone */}
+                  <div className="bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20 rounded-2xl p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center">
+                        <Phone className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-semibold text-purple-400 mb-2">
+                          Call Us
+                        </h3>
+                        <p className="text-gray-300">+91 99722 00910</p>
+                        <p className="text-gray-400 text-sm mt-1">
+                          Mon-Fri, 9 AM - 6 PM IST
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Office */}
+                  <div className="bg-gradient-to-br from-pink-500/10 to-pink-600/10 border border-pink-500/20 rounded-2xl p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-full flex items-center justify-center">
+                        <MapPin className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-semibold text-pink-400 mb-2">
+                          HeadQuarters
+                        </h3>
+                        <p className="text-gray-300">
+                          2423 KK HALLI, Kacharakanahalli, St. Thomas Town
+                        </p>
+                        <p className="text-gray-300">
+                          Bangalore, Karnataka, India
+                        </p>
+                        <p className="text-gray-400 text-sm mt-1">
+                          By appointment only
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-xl font-semibold">Our Office</h3>
-                  <p className="text-gray-400">123 Main Street, New York, NY 10001</p>
+
+                {/* Additional Info */}
+                <div className="bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-pink-500/20 rounded-3xl p-8">
+                  <h3 className="text-2xl font-bold mb-6">
+                    Why Choose Syntellite?
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                        <Users className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-gray-300">
+                        Expert team of engineers & designers
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                        <Clock className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-gray-300">
+                        Fast turnaround & agile development
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center">
+                        <MessageCircle className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-gray-300">
+                        Clear communication & collaboration
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-start gap-4">
-                <div className="bg-gray-800 p-3 rounded-full">
-                  <Mail className="w-6 h-6 text-sky-400" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold">Email Us</h3>
-                  <p className="text-gray-400">contact@syntellite.com</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="bg-gray-800 p-3 rounded-full">
-                  <Phone className="w-6 h-6 text-sky-400" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold">Call Us</h3>
-                  <p className="text-gray-400">(123) 456-7890</p>
+            </div>
+
+            {/* Call to Action */}
+            <div className="text-center mt-20">
+              <div className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 rounded-3xl p-12">
+                <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+                  Ready to Start Your Project?
+                </h2>
+                <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                  From initial concept to final deployment, we're here to guide
+                  you through every step of your innovation journey.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a
+                    href="mailto:contact@syntellite.com"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-white text-purple-600 font-semibold rounded-full hover:bg-gray-100 transition-colors"
+                  >
+                    <Mail className="w-5 h-5" />
+                    Email Us Now
+                  </a>
+                  <a
+                    href="tel:+919972200910"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-full hover:bg-white/20 transition-colors border border-white/20"
+                  >
+                    <Phone className="w-5 h-5" />
+                    Request a Callback
+                  </a>
                 </div>
               </div>
             </div>

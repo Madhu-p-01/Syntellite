@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import {
   Github,
   Twitter,
@@ -49,47 +50,18 @@ const SocialIcon: React.FC<{
 );
 
 const Footer = () => {
+  const location = useLocation();
+  const isServicesPage = location.pathname.startsWith('/services');
+
   return (
-    <footer className="bg-[--main-dark-bg] w-full">
-      {/* Security Banner */}
-      <div className="w-full max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-20 py-10">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-28">
-          {/* Security Statement */}
-          <div className="flex items-center gap-2 text-center sm:text-left">
-            <span className="text-white text-[14px] font-medium leading-5">
-              Your Security is Our Priority.
-            </span>
-            <a
-              href="#"
-              className="text-[#59bfef] text-[14px] font-medium leading-5 hover:underline"
-            >
-              Learn More
-            </a>
-          </div>
-
-          {/* Certifications */}
-          <div className="flex items-center gap-8">
-            <div className="flex items-center gap-2">
-              <Check className="w-4 h-4 text-white" />
-              <span className="text-white text-[14px] font-medium leading-5">
-                SOC2 Type 2
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Check className="w-4 h-4 text-white" />
-              <span className="text-white text-[14px] font-medium leading-5">
-                HIPAA Compliant
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Divider */}
-      <div className="h-[1px] bg-gradient-to-r from-transparent via-[#2E2E2E] to-transparent" />
-
+    <footer className={cn("bg-[--main-dark-bg] w-full", isServicesPage && "ml-80")}>
       {/* Main Footer Content */}
-      <div className="w-full max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-20 py-12 sm:py-24">
+      <div className={cn(
+        "w-full mx-auto py-12 sm:py-24",
+        isServicesPage 
+          ? "px-4 sm:px-6 lg:px-8 max-w-none" 
+          : "max-w-[1536px] px-4 sm:px-6 lg:px-20"
+      )}>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
           {/* Logo and Social Links */}
           <div className="col-span-2 lg:col-span-2 flex flex-col gap-8">
@@ -157,7 +129,12 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-[#2E2E2E]">
-        <div className="w-full max-w-[1536px] mx-auto px-12 py-8">
+        <div className={cn(
+          "w-full mx-auto py-8",
+          isServicesPage 
+            ? "px-4 sm:px-6 lg:px-8 max-w-none" 
+            : "max-w-[1536px] px-12"
+        )}>
           <div className="flex items-center justify-between">
             <div className="text-[#898989] text-[11px] font-medium leading-4">
               © {new Date().getFullYear()} Syntellite Innovations Pvt Ltd. All rights reserved.

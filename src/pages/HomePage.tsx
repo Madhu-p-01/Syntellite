@@ -1,11 +1,9 @@
-import React from 'react';
-import Hero from '../components/Hero';
-import TechLogos from '../components/TechLogos';
-import FeaturesGrid from '../components/FeaturesGrid';
-import CustomerStories from '../components/CustomerStories';
-import Testimonials from '../components/Testimonials';
-import OurProcess from '../components/OurProcess';
-import SEO from '../components/SEO';
+import React from "react";
+import Hero from "../components/Hero";
+import BuildForBusiness from "../components/BuildForBusiness";
+import OurServices from "../components/OurServices";
+import OurProcess from "../components/OurProcess";
+import SEO from "../components/SEO";
 
 const HomePage = () => {
   return (
@@ -18,11 +16,9 @@ const HomePage = () => {
         canonical="https://syntellite.com/"
       />
       <Hero />
-      <TechLogos />
-      <FeaturesGrid />
-      <CustomerStories />
+      <BuildForBusiness />
+      <OurServices />
       <OurProcess />
-      <Testimonials />
     </>
   );
 };
