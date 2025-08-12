@@ -15,7 +15,31 @@ import NavigationLoader from "./components/NavigationLoader";
 import WebDevelopmentPage from "./pages/services/WebDevelopmentPage";
 import AppDevelopmentPage from "./pages/services/AppDevelopmentPage";
 import AIAutomationPage from "./pages/services/AIAutomationPage";
-import { NavigationProvider, useNavigation } from "./contexts/NavigationContext";
+import ECommercePage from "./pages/services/ECommercePage";
+import PaymentGatewayPage from "./pages/services/PaymentGatewayPage";
+import SoftwareDevelopmentPage from "./pages/services/SoftwareDevelopmentPage";
+import UIUXDesignPage from "./pages/services/UIUXDesignPage";
+import APIMicroservicesPage from "./pages/services/APIMicroservicesPage";
+import CloudOperationsPage from "./pages/services/CloudOperationsPage";
+import SaaSDevelopmentPage from "./pages/services/SaaSDevelopmentPage";
+import MVPDevelopmentPage from "./pages/services/MVPDevelopmentPage";
+import ProgressiveWebAppsPage from "./pages/services/ProgressiveWebAppsPage";
+import DigitalMarketingPage from "./pages/services/DigitalMarketingPage";
+import SEOOptimizationPage from "./pages/services/SEOOptimizationPage";
+import DataAnalyticsPage from "./pages/services/DataAnalyticsPage";
+import PaymentOrchestrationPage from "./pages/services/PaymentOrchestrationPage";
+import WhiteLabelPage from "./pages/services/WhiteLabelPage";
+import SystemIntegrationPage from "./pages/services/SystemIntegrationPage";
+import DevOpsCICDPage from "./pages/services/DevOpsCICDPage";
+import ContentCreationPage from "./pages/services/ContentCreationPage";
+import ConsultingStrategyPage from "./pages/services/ConsultingStrategyPage";
+import SoftwareHardwarePage from "./pages/services/SoftwareHardwarePage";
+import RDPrototypingPage from "./pages/services/RDPrototypingPage";
+import PCBHardwareDesignPage from "./pages/services/PCBHardwareDesignPage";
+import {
+  NavigationProvider,
+  useNavigation,
+} from "./contexts/NavigationContext";
 import { motion } from "framer-motion";
 
 const AppContent: React.FC = () => {
@@ -23,60 +47,104 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-[--main-dark-bg] overflow-hidden">
-      <motion.div
-        className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full filter blur-3xl"
-        animate={{
-          x: [0, 100, 0, -100, 0],
-          y: [0, 50, 100, 50, 0],
-        }}
-        transition={{
-          duration: 40,
-          repeat: Infinity,
-          repeatType: "loop",
-        }}
-      />
-      <motion.div
-        className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/5 rounded-full filter blur-3xl"
-        animate={{
-          x: [0, -100, 0, 100, 0],
-          y: [0, -50, -100, -50, 0],
-        }}
-        transition={{
-          duration: 40,
-          repeat: Infinity,
-          repeatType: "loop",
-        }}
-      />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full filter blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/5 rounded-full filter blur-3xl" />
       <div className="relative z-10">
         <Header />
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/services" element={<ServicesPage />} />
-            <Route path="/services/web-development" element={<WebDevelopmentPage />} />
-            <Route path="/services/app-development" element={<AppDevelopmentPage />} />
-            <Route path="/services/ecommerce-solutions" element={<ComingSoonPage />} />
-            <Route path="/services/payment-gateway" element={<ComingSoonPage />} />
-            <Route path="/services/payment-orchestration" element={<ComingSoonPage />} />
-            <Route path="/services/progressive-web-apps" element={<ComingSoonPage />} />
-            <Route path="/services/software-development" element={<ComingSoonPage />} />
-            <Route path="/services/api-microservices" element={<ComingSoonPage />} />
-            <Route path="/services/ai-automation" element={<AIAutomationPage />} />
-            <Route path="/services/white-label-solutions" element={<ComingSoonPage />} />
-            <Route path="/services/saas-development" element={<ComingSoonPage />} />
-            <Route path="/services/system-integration" element={<ComingSoonPage />} />
-            <Route path="/services/ui-ux-design" element={<ComingSoonPage />} />
-            <Route path="/services/cloud-operations" element={<ComingSoonPage />} />
-            <Route path="/services/software-hardware-development" element={<ComingSoonPage />} />
-            <Route path="/services/rd-prototyping" element={<ComingSoonPage />} />
-            <Route path="/services/pcb-hardware-design" element={<ComingSoonPage />} />
-            <Route path="/services/devops-cicd" element={<ComingSoonPage />} />
-            <Route path="/services/seo-optimization" element={<ComingSoonPage />} />
-            <Route path="/services/digital-marketing" element={<ComingSoonPage />} />
-            <Route path="/services/content-creation" element={<ComingSoonPage />} />
-            <Route path="/services/mvp-development" element={<ComingSoonPage />} />
-            <Route path="/services/consulting-strategy" element={<ComingSoonPage />} />
-            <Route path="/services/data-analytics" element={<ComingSoonPage />} />
+            <Route
+              path="/services/web-development"
+              element={<WebDevelopmentPage />}
+            />
+            <Route
+              path="/services/app-development"
+              element={<AppDevelopmentPage />}
+            />
+            <Route
+              path="/services/ecommerce-solutions"
+              element={<ECommercePage />}
+            />
+            <Route
+              path="/services/payment-gateway"
+              element={<PaymentGatewayPage />}
+            />
+            <Route
+              path="/services/payment-orchestration"
+              element={<PaymentOrchestrationPage />}
+            />
+            <Route
+              path="/services/progressive-web-apps"
+              element={<ProgressiveWebAppsPage />}
+            />
+            <Route
+              path="/services/software-development"
+              element={<SoftwareDevelopmentPage />}
+            />
+            <Route
+              path="/services/api-microservices"
+              element={<APIMicroservicesPage />}
+            />
+            <Route
+              path="/services/ai-automation"
+              element={<AIAutomationPage />}
+            />
+            <Route
+              path="/services/white-label-solutions"
+              element={<WhiteLabelPage />}
+            />
+            <Route
+              path="/services/saas-development"
+              element={<SaaSDevelopmentPage />}
+            />
+            <Route
+              path="/services/system-integration"
+              element={<SystemIntegrationPage />}
+            />
+            <Route path="/services/ui-ux-design" element={<UIUXDesignPage />} />
+            <Route
+              path="/services/cloud-operations"
+              element={<CloudOperationsPage />}
+            />
+            <Route
+              path="/services/software-hardware-development"
+              element={<SoftwareHardwarePage />}
+            />
+            <Route
+              path="/services/rd-prototyping"
+              element={<RDPrototypingPage />}
+            />
+            <Route
+              path="/services/pcb-hardware-design"
+              element={<PCBHardwareDesignPage />}
+            />
+            <Route path="/services/devops-cicd" element={<DevOpsCICDPage />} />
+            <Route
+              path="/services/seo-optimization"
+              element={<SEOOptimizationPage />}
+            />
+            <Route
+              path="/services/digital-marketing"
+              element={<DigitalMarketingPage />}
+            />
+            <Route
+              path="/services/content-creation"
+              element={<ContentCreationPage />}
+            />
+            <Route
+              path="/services/mvp-development"
+              element={<MVPDevelopmentPage />}
+            />
+            <Route
+              path="/services/consulting-strategy"
+              element={<ConsultingStrategyPage />}
+            />
+            <Route
+              path="/services/data-analytics"
+              element={<DataAnalyticsPage />}
+            />
             <Route path="/portfolio" element={<PortfolioPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/careers" element={<CareersPage />} />

@@ -20,34 +20,45 @@ const NetworkAnimation = () => {
   const [connections, setConnections] = useState<
     Array<{ from: number; to: number; opacity: number }>
   >([]);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [mousePos, setMousePos] = useState({ x: -100, y: -100 });
+  const animationRef = React.useRef<number>();
+  const lastUpdateRef = React.useRef<number>(0);
+  const mouseThrottleRef = React.useRef<number>(0);
+
+  // Optimized distance calculation using squared distance
+  const getSquaredDistance = (x1: number, y1: number, x2: number, y2: number) => {
+    const dx = x1 - x2;
+    const dy = y1 - y2;
+    return dx * dx + dy * dy;
+  };
 
   useEffect(() => {
-    // Generate random nodes - more nodes for intensity
-    const newNodes = Array.from({ length: 30 }, (_, i) => ({
+    // Reduced nodes from 30 to 18 for better performance
+    const newNodes = Array.from({ length: 18 }, (_, i) => ({
       id: i,
-      x: 50 + Math.random() * 600, // Keep nodes away from edges
-      y: 50 + Math.random() * 400, // Keep nodes away from edges
-      vx: (Math.random() - 0.5) * 1.2, // Faster movement
-      vy: (Math.random() - 0.5) * 1.2, // Faster movement
+      x: 50 + Math.random() * 600,
+      y: 50 + Math.random() * 400,
+      vx: (Math.random() - 0.5) * 0.8, // Reduced velocity
+      vy: (Math.random() - 0.5) * 0.8,
     }));
     setNodes(newNodes);
 
-    // Generate connections between nearby nodes
-    const newConnections: Array<{ from: number; to: number; opacity: number }> =
-      [];
+    // Pre-calculate initial connections
+    const newConnections: Array<{ from: number; to: number; opacity: number }> = [];
+    const maxDistanceSquared = 150 * 150; // 150^2 for squared distance comparison
+
     for (let i = 0; i < newNodes.length; i++) {
       for (let j = i + 1; j < newNodes.length; j++) {
-        const distance = Math.sqrt(
-          Math.pow(newNodes[i].x - newNodes[j].x, 2) +
-            Math.pow(newNodes[i].y - newNodes[j].y, 2)
+        const distanceSquared = getSquaredDistance(
+          newNodes[i].x, newNodes[i].y,
+          newNodes[j].x, newNodes[j].y
         );
-        if (distance < 150) {
-          // Increased connection distance
+        if (distanceSquared < maxDistanceSquared) {
+          const distance = Math.sqrt(distanceSquared);
           newConnections.push({
             from: i,
             to: j,
-            opacity: Math.max(0.2, 1 - distance / 150), // Higher minimum opacity
+            opacity: Math.max(0.15, 1 - distance / 150),
           });
         }
       }
@@ -56,46 +67,48 @@ const NetworkAnimation = () => {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setNodes((prevNodes) =>
-        prevNodes.map((node) => {
-          // Calculate distance from mouse
-          const mouseDistance = Math.sqrt(
-            Math.pow(node.x - mousePos.x, 2) + Math.pow(node.y - mousePos.y, 2)
-          );
+    const animate = (currentTime: number) => {
+      // Throttle to ~15 FPS instead of 20 FPS for better performance
+      if (currentTime - lastUpdateRef.current < 67) {
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      lastUpdateRef.current = currentTime;
 
-          // Apply mouse repulsion if within 100px
+      setNodes((prevNodes) => {
+        const updatedNodes = prevNodes.map((node) => {
+          // Optimized mouse distance calculation using squared distance
+          const mouseDistanceSquared = getSquaredDistance(node.x, node.y, mousePos.x, mousePos.y);
+          
           let newVx = node.vx;
           let newVy = node.vy;
 
-          if (mouseDistance < 100 && mouseDistance > 0) {
-            const repulsionForce = (100 - mouseDistance) / 100;
+          // Apply mouse repulsion only if within 80px (reduced from 100px)
+          if (mouseDistanceSquared < 6400 && mouseDistanceSquared > 0) { // 80^2 = 6400
+            const mouseDistance = Math.sqrt(mouseDistanceSquared);
+            const repulsionForce = (80 - mouseDistance) / 80;
             const angle = Math.atan2(node.y - mousePos.y, node.x - mousePos.x);
-            newVx += Math.cos(angle) * repulsionForce * 2;
-            newVy += Math.sin(angle) * repulsionForce * 2;
+            newVx += Math.cos(angle) * repulsionForce * 1.5; // Reduced force
+            newVy += Math.sin(angle) * repulsionForce * 1.5;
           }
 
           // Calculate new position
           const newX = node.x + newVx;
           const newY = node.y + newVy;
 
-          // Handle boundary bouncing and maintain velocity
+          // Handle boundary bouncing
           let finalVx = newVx;
           let finalVy = newVy;
 
-          if (newX <= 50 || newX >= 650) {
-            finalVx = -newVx;
-          }
-          if (newY <= 50 || newY >= 450) {
-            finalVy = -newVy;
-          }
+          if (newX <= 50 || newX >= 650) finalVx = -newVx;
+          if (newY <= 50 || newY >= 450) finalVy = -newVy;
 
-          // Add small random velocity to maintain movement
-          finalVx += (Math.random() - 0.5) * 0.1;
-          finalVy += (Math.random() - 0.5) * 0.1;
+          // Reduced random velocity for smoother movement
+          finalVx += (Math.random() - 0.5) * 0.05;
+          finalVy += (Math.random() - 0.5) * 0.05;
 
-          // Limit velocity to prevent excessive speed
-          const maxVelocity = 2;
+          // Limit velocity
+          const maxVelocity = 1.5; // Reduced from 2
           finalVx = Math.max(-maxVelocity, Math.min(maxVelocity, finalVx));
           finalVy = Math.max(-maxVelocity, Math.min(maxVelocity, finalVy));
 
@@ -106,48 +119,57 @@ const NetworkAnimation = () => {
             vx: finalVx,
             vy: finalVy,
           };
-        })
-      );
+        });
 
-      // Update connections based on new positions
-      setConnections((prevConnections) => {
-        const updatedNodes = nodes;
-        const newConnections: Array<{
-          from: number;
-          to: number;
-          opacity: number;
-        }> = [];
+        // Update connections less frequently and more efficiently
+        const newConnections: Array<{ from: number; to: number; opacity: number }> = [];
+        const maxDistanceSquared = 150 * 150;
 
         for (let i = 0; i < updatedNodes.length; i++) {
           for (let j = i + 1; j < updatedNodes.length; j++) {
-            const distance = Math.sqrt(
-              Math.pow(updatedNodes[i].x - updatedNodes[j].x, 2) +
-                Math.pow(updatedNodes[i].y - updatedNodes[j].y, 2)
+            const distanceSquared = getSquaredDistance(
+              updatedNodes[i].x, updatedNodes[i].y,
+              updatedNodes[j].x, updatedNodes[j].y
             );
-            if (distance < 150) {
-              // Match the initial setup
+            if (distanceSquared < maxDistanceSquared) {
+              const distance = Math.sqrt(distanceSquared);
               newConnections.push({
                 from: i,
                 to: j,
-                opacity: Math.max(0.2, 1 - distance / 150), // Higher minimum opacity
+                opacity: Math.max(0.15, 1 - distance / 150),
               });
             }
           }
         }
-        return newConnections;
+        
+        setConnections(newConnections);
+        return updatedNodes;
       });
-    }, 50);
 
-    return () => clearInterval(interval);
-  }, [nodes]);
+      animationRef.current = requestAnimationFrame(animate);
+    };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [mousePos]);
+
+  // Throttled mouse move handler
+  const handleMouseMove = React.useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const now = Date.now();
+    if (now - mouseThrottleRef.current < 50) return; // Throttle to 20 FPS
+    mouseThrottleRef.current = now;
+
     const rect = e.currentTarget.getBoundingClientRect();
     setMousePos({
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
     });
-  };
+  }, []);
 
   return (
     <div

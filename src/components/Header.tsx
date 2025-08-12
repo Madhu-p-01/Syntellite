@@ -107,10 +107,11 @@ const Header: React.FC = () => {
                           </h3>
                           <div className="space-y-4">
                             <Link
-                              to="/services"
+                              to="/services/web-development"
                               onClick={() => {
                                 setActiveDropdown(null);
-                                handleSamePageNavigation('/services');
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/web-development');
                               }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
@@ -126,8 +127,12 @@ const Header: React.FC = () => {
                             </Link>
 
                             <Link
-                              to="/services"
-                              onClick={() => setActiveDropdown(null)}
+                              to="/services/app-development"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/app-development');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <FaAppStoreIos className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -142,8 +147,12 @@ const Header: React.FC = () => {
                             </Link>
 
                             <Link
-                              to="/services"
-                              onClick={() => setActiveDropdown(null)}
+                              to="/services/ecommerce-solutions"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/ecommerce-solutions');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <Zap className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -158,8 +167,12 @@ const Header: React.FC = () => {
                             </Link>
 
                             <Link
-                              to="/services"
-                              onClick={() => setActiveDropdown(null)}
+                              to="/services/payment-gateway"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/payment-gateway');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <RiSecurePaymentLine className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -177,8 +190,12 @@ const Header: React.FC = () => {
                             </Link>
 
                             <Link
-                              to="/services"
-                              onClick={() => setActiveDropdown(null)}
+                              to="/services/payment-orchestration"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/payment-orchestration');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <GrMultiple className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -204,7 +221,12 @@ const Header: React.FC = () => {
                           </h3>
                           <div className="space-y-4">
                             <Link
-                              to="/services"
+                              to="/services/software-development"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/software-development');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <Cpu className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -219,7 +241,12 @@ const Header: React.FC = () => {
                             </Link>
 
                             <Link
-                              to="/services"
+                              to="/services/api-microservices"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/api-microservices');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <Cloud className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -234,7 +261,12 @@ const Header: React.FC = () => {
                             </Link>
 
                             <Link
-                              to="/services"
+                              to="/services/ai-automation"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/ai-automation');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <Globe className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -249,7 +281,12 @@ const Header: React.FC = () => {
                             </Link>
 
                             <Link
-                              to="/services"
+                              to="/services/white-label-solutions"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/white-label-solutions');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <Shield className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -263,7 +300,12 @@ const Header: React.FC = () => {
                               </div>
                             </Link>
                             <Link
-                              to="/services"
+                              to="/services/saas-development"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/saas-development');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <Shield className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -273,6 +315,26 @@ const Header: React.FC = () => {
                                 </div>
                                 <div className="text-gray-400 text-sm">
                                   Build and scale your SaaS product
+                                </div>
+                              </div>
+                            </Link>
+
+                            <Link
+                              to="/services/progressive-web-apps"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/progressive-web-apps');
+                              }}
+                              className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
+                            >
+                              <Globe className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                              <div>
+                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                  Progressive Web Apps
+                                </div>
+                                <div className="text-gray-400 text-sm">
+                                  Native app experience on web
                                 </div>
                               </div>
                             </Link>
@@ -286,7 +348,12 @@ const Header: React.FC = () => {
                           </h3>
                           <div className="space-y-4">
                             <Link
-                              to="/services"
+                              to="/services/ui-ux-design"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/ui-ux-design');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <Palette className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -304,7 +371,12 @@ const Header: React.FC = () => {
                             </Link>
 
                             <Link
-                              to="/services"
+                              to="/services/cloud-operations"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/cloud-operations');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <Target className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -322,7 +394,12 @@ const Header: React.FC = () => {
                             </Link>
 
                             <Link
-                              to="/services"
+                              to="/services/software-hardware-development"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/software-hardware-development');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <Wrench className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -336,7 +413,12 @@ const Header: React.FC = () => {
                               </div>
                             </Link>
                             <Link
-                              to="/services"
+                              to="/services/rd-prototyping"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/rd-prototyping');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <Lightbulb className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -350,7 +432,12 @@ const Header: React.FC = () => {
                               </div>
                             </Link>
                             <Link
-                              to="/services"
+                              to="/services/pcb-hardware-design"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/pcb-hardware-design');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <Search className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -360,6 +447,46 @@ const Header: React.FC = () => {
                                 </div>
                                 <div className="text-gray-400 text-sm">
                                   Design and prototype your hardware
+                                </div>
+                              </div>
+                            </Link>
+
+                            <Link
+                              to="/services/system-integration"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/system-integration');
+                              }}
+                              className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
+                            >
+                              <Settings className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                              <div>
+                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                  System Integration
+                                </div>
+                                <div className="text-gray-400 text-sm">
+                                  Connect and integrate systems
+                                </div>
+                              </div>
+                            </Link>
+
+                            <Link
+                              to="/services/devops-cicd"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/devops-cicd');
+                              }}
+                              className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
+                            >
+                              <Cpu className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                              <div>
+                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                  DevOps CI/CD
+                                </div>
+                                <div className="text-gray-400 text-sm">
+                                  Automated deployment pipelines
                                 </div>
                               </div>
                             </Link>
@@ -373,7 +500,12 @@ const Header: React.FC = () => {
                           </h3>
                           <div className="space-y-4">
                             <Link
-                              to="/services"
+                              to="/services/seo-optimization"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/seo-optimization');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <Puzzle className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -388,7 +520,12 @@ const Header: React.FC = () => {
                             </Link>
 
                             <Link
-                              to="/services"
+                              to="/services/digital-marketing"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/digital-marketing');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <Figma className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -403,7 +540,12 @@ const Header: React.FC = () => {
                             </Link>
 
                             <Link
-                              to="/services"
+                              to="/services/content-creation"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/content-creation');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <CloudLightning className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -420,7 +562,12 @@ const Header: React.FC = () => {
                               </div>
                             </Link>
                             <Link
-                              to="/services"
+                              to="/services/mvp-development"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/mvp-development');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <CloudLightning className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -437,7 +584,12 @@ const Header: React.FC = () => {
                               </div>
                             </Link>
                             <Link
-                              to="/services"
+                              to="/services/consulting-strategy"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/consulting-strategy');
+                              }}
                               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
                             >
                               <Briefcase className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -453,6 +605,26 @@ const Header: React.FC = () => {
                                 </div>
                               </div>
                             </Link>
+
+                            <Link
+                              to="/services/data-analytics"
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                                handleSamePageNavigation('/services/data-analytics');
+                              }}
+                              className="flex items-start space-x-3 p-2 rounded-lg hover:bg-purple-900/20 transition-colors group/item"
+                            >
+                              <BarChart3 className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                              <div>
+                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                  Data Analytics
+                                </div>
+                                <div className="text-gray-400 text-sm">
+                                  Business intelligence and insights
+                                </div>
+                              </div>
+                            </Link>
                           </div>
                         </div>
                       </div>
@@ -460,7 +632,12 @@ const Header: React.FC = () => {
                       {/* Bottom CTA Cards */}
                       <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-gray-700">
                         <Link
-                          to="/Services"
+                          to="/services"
+                          onClick={() => {
+                            setActiveDropdown(null);
+                            setIsMenuOpen(false);
+                            handleSamePageNavigation('/services');
+                          }}
                           className="relative overflow-hidden bg-gradient-to-r from-purple-600 via-purple-500 to-indigo-600 p-4 rounded-lg transition-all duration-500 group"
                           style={{
                             backgroundSize: '200% 200%',
@@ -482,6 +659,11 @@ const Header: React.FC = () => {
 
                         <Link
                           to="/contact"
+                          onClick={() => {
+                            setActiveDropdown(null);
+                            setIsMenuOpen(false);
+                            handleSamePageNavigation('/contact');
+                          }}
                           className="relative overflow-hidden bg-gradient-to-r from-purple-600 via-purple-500 to-indigo-600 p-4 rounded-lg transition-all duration-500 group"
                           style={{
                             backgroundSize: '200% 200%',
