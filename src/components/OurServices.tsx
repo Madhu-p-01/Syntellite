@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Code, Smartphone, Globe, Database, Palette, Cloud, BarChart3, CreditCard, Lightbulb, Users, Megaphone } from 'lucide-react';
 
 const ServiceCard = ({ 
@@ -106,7 +106,160 @@ const DataCard = () => (
   </div>
 );
 
+const StackedServiceCard = ({ 
+  title, 
+  icon: Icon, 
+  gradient, 
+  description,
+  technologies = [],
+  index,
+  totalCards
+}: {
+  title: string;
+  icon: any;
+  gradient: string;
+  description: string;
+  technologies?: string[];
+  index: number;
+  totalCards: number;
+}) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={cardRef}
+      className={`${gradient} rounded-3xl p-6 relative overflow-hidden transition-all duration-700 ease-out ${
+        isVisible 
+          ? 'translate-y-0 opacity-100 scale-100' 
+          : 'translate-y-20 opacity-0 scale-95'
+      }`}
+      style={{
+        transitionDelay: `${index * 150}ms`,
+      }}
+    >
+      <div className="relative z-10">
+        <div className="text-white mb-4">
+          <Icon className="w-8 h-8" />
+        </div>
+        <h3 className="text-white font-bold text-2xl leading-tight mb-4">
+          {title}
+        </h3>
+        <p className="text-white/80 text-sm mb-4">
+          {description}
+        </p>
+        {technologies.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {technologies.map((tech, i) => (
+              <span key={i} className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white">
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+      
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-4 right-4">
+          <Icon className="w-16 h-16 opacity-30" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function OurServices() {
+  const services = [
+    {
+      title: "Web Development",
+      icon: Code,
+      gradient: "bg-gradient-to-br from-purple-500 via-blue-500 to-purple-600 animate-gradient-x bg-[length:200%_200%]",
+      description: "Custom websites, web apps, and e-commerce solutions built with modern technologies.",
+      technologies: ['React', 'Next.js', 'Node.js', 'TypeScript']
+    },
+    {
+      title: "Mobile Apps",
+      icon: Smartphone,
+      gradient: "bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 animate-gradient-x bg-[length:200%_200%]",
+      description: "Native & cross-platform mobile applications for iOS and Android.",
+      technologies: ['React Native', 'Flutter', 'Swift', 'Kotlin']
+    },
+    {
+      title: "UI/UX Design",
+      icon: Palette,
+      gradient: "bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 animate-gradient-x bg-[length:200%_200%]",
+      description: "User-centered design that creates intuitive and engaging experiences.",
+      technologies: ['Figma', 'Adobe XD', 'Sketch', 'Prototyping']
+    },
+    {
+      title: "Cloud Solutions",
+      icon: Cloud,
+      gradient: "bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 animate-gradient-x bg-[length:200%_200%]",
+      description: "Scalable cloud infrastructure and deployment solutions.",
+      technologies: ['AWS', 'Azure', 'GCP', 'Docker']
+    },
+    {
+      title: "Data Solutions",
+      icon: Database,
+      gradient: "bg-gradient-to-br from-purple-500 via-blue-500 to-purple-600 animate-gradient-x bg-[length:200%_200%]",
+      description: "Advanced data analytics, processing, and visualization solutions.",
+      technologies: ['Python', 'SQL', 'MongoDB', 'Analytics']
+    },
+    {
+      title: "Analytics & Insights",
+      icon: BarChart3,
+      gradient: "bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 animate-gradient-x bg-[length:200%_200%]",
+      description: "Business intelligence and data-driven insights for better decision making.",
+      technologies: ['Tableau', 'Power BI', 'D3.js', 'Charts']
+    },
+    {
+      title: "Payment Orchestration",
+      icon: CreditCard,
+      gradient: "bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 animate-gradient-x bg-[length:200%_200%]",
+      description: "Seamless payment processing and gateway integration solutions.",
+      technologies: ['Stripe', 'PayPal', 'Razorpay', 'APIs']
+    },
+    {
+      title: "R&D Prototyping",
+      icon: Lightbulb,
+      gradient: "bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 animate-gradient-x bg-[length:200%_200%]",
+      description: "Rapid prototyping and research & development for innovative solutions.",
+      technologies: ['MVP', 'Prototyping', 'Innovation', 'Testing']
+    },
+    {
+      title: "Consultancy & Strategy",
+      icon: Users,
+      gradient: "bg-gradient-to-br from-purple-500 via-blue-500 to-pink-500 animate-gradient-x bg-[length:200%_200%]",
+      description: "Strategic technology consulting and business transformation guidance.",
+      technologies: ['Strategy', 'Planning', 'Architecture', 'Consulting']
+    },
+    {
+      title: "Digital Marketing",
+      icon: Megaphone,
+      gradient: "bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 animate-gradient-x bg-[length:200%_200%]",
+      description: "Comprehensive digital marketing strategies to boost your online presence and growth.",
+      technologies: ['SEO', 'SEM', 'Social', 'Content']
+    }
+  ];
+
   return (
     <div className="bg-black text-white py-16">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -125,8 +278,26 @@ export default function OurServices() {
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Mobile Stacked Cards */}
+        <div className="block md:hidden">
+          <div className="space-y-6">
+            {services.map((service, index) => (
+              <StackedServiceCard
+                key={service.title}
+                title={service.title}
+                icon={service.icon}
+                gradient={service.gradient}
+                description={service.description}
+                technologies={service.technologies}
+                index={index}
+                totalCards={services.length}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           
           {/* Web Development - Large Card with Content */}
           <div className="bg-gradient-to-br from-purple-500 via-blue-500 to-purple-600 rounded-3xl p-6 lg:p-8 relative overflow-hidden lg:col-span-2 animate-gradient-x bg-[length:200%_200%]">

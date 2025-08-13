@@ -173,7 +173,7 @@ const NetworkAnimation = () => {
 
   return (
     <div
-      className="relative h-[500px] animate-slideInRight"
+      className="relative h-full w-full animate-slideInRight"
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setMousePos({ x: -100, y: -100 })}
     >
@@ -312,7 +312,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="h-[570px] bg-black text-white font-sans antialiased relative overflow-hidden">
+    <div className="min-h-[500px] lg:h-[570px] bg-black text-white font-sans antialiased relative overflow-hidden">
       {/* Grid pattern background */}
       <div
         className="absolute inset-0 opacity-20"
@@ -326,14 +326,14 @@ const Hero = () => {
       />
 
       {/* Hero Section */}
-      <main className="relative pt-10 pb-0">
+      <main className="relative pt-6 sm:pt-8 lg:pt-10 pb-6 sm:pb-8 lg:pb-0">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
             {/* Left Content */}
-            <div className="lg:col-span-6">
+            <div className="lg:col-span-6 order-2 lg:order-1">
               {/* Main Headline with Typing Effect */}
-              <div className="space-y-0 mt-[10%] md:mt-[15%] lg:mt-[23%]">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <div className="space-y-0 mt-4 sm:mt-8 md:mt-[10%] lg:mt-[23%]">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                   {typedText.split("\n").map((line, index) => (
                     <div key={index}>
                       {line}
@@ -345,10 +345,7 @@ const Hero = () => {
                   ))}
                 </h1>
 
-                <p
-                  className="text-xl text-gray-400 max-w-lg leading-relaxed mt-[5%]"
-                  style={{ marginTop: "5%" }}
-                >
+                <p className="text-lg sm:text-xl text-gray-400 max-w-lg leading-relaxed mt-4 sm:mt-6 lg:mt-[5%]">
                   Syntellite is the smarter way to build tech software,
                   hardware, or both. Turn your ideas into reality with powerful,
                   scalable solutions. No confusion, Just innovation made simple.
@@ -357,8 +354,10 @@ const Hero = () => {
             </div>
 
             {/* Right Content - Network Animation */}
-            <div className="lg:col-span-6 space-y-6">
-              <NetworkAnimation />
+            <div className="lg:col-span-6 space-y-6 order-1 lg:order-2">
+              <div className="h-[300px] sm:h-[400px] lg:h-[500px]">
+                <NetworkAnimation />
+              </div>
             </div>
           </div>
         </div>

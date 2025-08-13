@@ -50,6 +50,113 @@
       ]
     }
     </script>
+
+    <!-- Calendly link widget begin -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+    <!-- Calendly link widget end -->
+    
+    <!-- Custom Calendly Mobile Styles -->
+    <style>
+      /* Make Calendly full screen on mobile - comprehensive selectors */
+      @media (max-width: 768px) {
+        /* Target all possible Calendly overlay elements */
+        .calendly-overlay,
+        [data-calendly-overlay],
+        div[class*="calendly"][class*="overlay"],
+        div[style*="position: fixed"][style*="z-index"] {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          width: 100vw !important;
+          height: 100vh !important;
+          max-width: none !important;
+          max-height: none !important;
+          z-index: 9999 !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+        
+        /* Target all possible Calendly popup elements */
+        .calendly-popup,
+        .calendly-popup-wrapper,
+        .calendly-popup-content,
+        [data-calendly-popup],
+        div[class*="calendly"][class*="popup"],
+        div[style*="position: absolute"],
+        div[style*="position: fixed"] div[style*="background"] {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          width: 100vw !important;
+          height: 100vh !important;
+          max-width: none !important;
+          max-height: none !important;
+          border-radius: 0 !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          transform: none !important;
+        }
+        
+        /* Target Calendly iframes */
+        .calendly-popup iframe,
+        .calendly-popup-content iframe,
+        iframe[src*="calendly"],
+        div[class*="calendly"] iframe {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          width: 100vw !important;
+          height: 100vh !important;
+          max-width: none !important;
+          max-height: none !important;
+          border: none !important;
+          border-radius: 0 !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+        
+        /* Additional fallback selectors */
+        body > div[style*="position: fixed"],
+        body > div[style*="z-index"] {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          width: 100vw !important;
+          height: 100vh !important;
+          max-width: none !important;
+          max-height: none !important;
+        }
+        
+        /* Force full screen for any nested elements */
+        body > div[style*="position: fixed"] > div,
+        body > div[style*="z-index"] > div {
+          width: 100% !important;
+          height: 100% !important;
+          max-width: none !important;
+          max-height: none !important;
+          border-radius: 0 !important;
+        }
+      }
+      
+      /* Ensure proper desktop sizing */
+      @media (min-width: 769px) {
+        .calendly-popup,
+        .calendly-popup-wrapper,
+        .calendly-popup-content {
+          width: 90% !important;
+          max-width: 900px !important;
+          height: 90% !important;
+          max-height: 700px !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

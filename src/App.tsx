@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
@@ -36,6 +37,7 @@ import ConsultingStrategyPage from "./pages/services/ConsultingStrategyPage";
 import SoftwareHardwarePage from "./pages/services/SoftwareHardwarePage";
 import RDPrototypingPage from "./pages/services/RDPrototypingPage";
 import PCBHardwareDesignPage from "./pages/services/PCBHardwareDesignPage";
+import BookMeetingPage from "./pages/BookMeetingPage";
 import {
   NavigationProvider,
   useNavigation,
@@ -44,6 +46,7 @@ import { motion } from "framer-motion";
 
 const AppContent: React.FC = () => {
   const { isNavigating } = useNavigation();
+  const location = useLocation();
 
   return (
     <div className="relative min-h-screen bg-[--main-dark-bg] overflow-hidden">
@@ -150,6 +153,7 @@ const AppContent: React.FC = () => {
             <Route path="/careers" element={<CareersPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/book-meeting" element={<BookMeetingPage />} />
             <Route path="/coming-soon" element={<ComingSoonPage />} />
             {/* Catch all other routes and redirect to home */}
             <Route path="*" element={<HomePage />} />

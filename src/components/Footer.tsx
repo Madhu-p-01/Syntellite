@@ -54,7 +54,7 @@ const Footer = () => {
   const isServicesPage = location.pathname.startsWith('/services');
 
   return (
-    <footer className={cn("bg-[--main-dark-bg] w-full", isServicesPage && "ml-80")}>
+    <footer className={cn("bg-[--main-dark-bg] w-full", isServicesPage && "lg:ml-80")}>
       {/* Main Footer Content */}
       <div className={cn(
         "w-full mx-auto py-12 sm:py-24",

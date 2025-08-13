@@ -215,31 +215,21 @@ const ContactPage = () => {
             </div>
 
             {/* Call to Action */}
-            <div className="text-center mt-20">
-              <div className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 rounded-3xl p-12">
-                <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-                  Ready to Start Your Project?
-                </h2>
-                <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                  From initial concept to final deployment, we're here to guide
-                  you through every step of your innovation journey.
+            <div className="mt-20 max-w-md mx-auto">
+              <div className="bg-gradient-to-br from-gray-900 to-purple-900/50 border border-purple-600/30 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-white mb-3">
+                  Ready to Start?
+                </h3>
+                <p className="text-gray-400 text-sm mb-4">
+                  Get expert consultation on your project requirements.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a
-                    href="mailto:contact@syntellite.com"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-white text-purple-600 font-semibold rounded-full hover:bg-gray-100 transition-colors"
-                  >
-                    <Mail className="w-5 h-5" />
-                    Email Us Now
-                  </a>
-                  <a
-                    href="tel:+919972200910"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-full hover:bg-white/20 transition-colors border border-white/20"
-                  >
-                    <Phone className="w-5 h-5" />
-                    Request a Callback
-                  </a>
-                </div>
+                <a
+                  href="mailto:contact@syntellite.com"
+                  className="inline-flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors font-medium text-sm"
+                >
+                  <Users className="w-4 h-4" />
+                  Free Consultation
+                </a>
               </div>
             </div>
           </div>
