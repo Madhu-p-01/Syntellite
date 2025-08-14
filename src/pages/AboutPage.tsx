@@ -16,8 +16,8 @@ const AboutPage = () => {
       />
       <div className="bg-black text-white">
         {/* Hero Section */}
-        <div className="pt-24">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="pt-32">
+          <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
             <div className="text-left mb-16">
               <div className="text-xs text-blue-400 uppercase tracking-wider mb-4">
                 <span className="font-bold italic">ABOUT</span>{" "}
@@ -40,7 +40,7 @@ const AboutPage = () => {
 
         {/* Main Content */}
         <div className="py-16">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
               {/* Content */}
               <div>

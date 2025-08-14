@@ -11,21 +11,21 @@ const ServicesLayout: React.FC<ServicesLayoutProps> = ({ children }) => {
 
   return (
     <div className="bg-black text-white min-h-screen flex flex-col">
-      {/* Sidebar Toggle Tab - Juspay Style - Visible on all screen sizes */}
+      {/* Small Clickable Angle Element - Mobile Only */}
       <div 
-        className={`fixed top-1/2 -translate-y-1/2 z-50 transition-all duration-300 ${
-          isSidebarOpen ? 'left-80' : 'left-0'
+        className={`lg:hidden fixed top-1/2 -translate-y-1/2 z-50 transition-all duration-300 ${
+          isSidebarOpen ? 'left-80' : 'left-2'
         }`}
       >
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="bg-gray-800 hover:bg-gray-700 transition-all duration-300 flex items-center justify-center w-5 h-10 rounded-r border-r border-gray-600"
+          className="bg-gray-800/80 hover:bg-gray-700 transition-all duration-300 flex items-center justify-center w-6 h-6 rounded-full shadow-lg backdrop-blur-sm"
           aria-label={isSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
         >
           {isSidebarOpen ? (
-            <ChevronLeft className="w-3 h-3 text-gray-400" />
+            <ChevronLeft className="w-3 h-3 text-gray-300" />
           ) : (
-            <ChevronRight className="w-3 h-3 text-gray-400" />
+            <ChevronRight className="w-3 h-3 text-gray-300" />
           )}
         </button>
       </div>
@@ -40,11 +40,11 @@ const ServicesLayout: React.FC<ServicesLayoutProps> = ({ children }) => {
 
       <ServicesSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
       
-      <div className={`flex-1 overflow-hidden mt-20 transition-all duration-300 ${
+      <div className={`flex-1 overflow-hidden transition-all duration-300 ${
         isSidebarOpen ? 'lg:ml-80' : 'lg:ml-5'
       }`}>
         <div className="h-full overflow-y-auto">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 pl-6">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-8 pl-6">
             {children}
           </div>
         </div>

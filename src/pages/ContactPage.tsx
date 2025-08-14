@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SEO from "../components/SEO";
 import { Phone, Mail, MapPin, MessageCircle, Clock, Users } from "lucide-react";
 
 const ContactPage = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize(); // Set initial value
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   return (
     <>
       <SEO
@@ -14,8 +22,8 @@ const ContactPage = () => {
       />
       <div className="bg-black text-white">
         {/* Hero Section */}
-        <div className="pt-24">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="pt-32">
+          <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
             <div className="text-left mb-16">
               <div className="text-xs text-blue-400 uppercase tracking-wider mb-4">
                 <span className="font-bold italic">CONTACT</span>{" "}
@@ -34,7 +42,7 @@ const ContactPage = () => {
 
         {/* Main Content */}
         <div className="py-16">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
               {/* Contact Form */}
               <div className="bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-3xl p-8 lg:p-12">
@@ -215,7 +223,7 @@ const ContactPage = () => {
             </div>
 
             {/* Call to Action */}
-            <div className="mt-20 max-w-md mx-auto">
+            <div className="mt-20">
               <div className="bg-gradient-to-br from-gray-900 to-purple-900/50 border border-purple-600/30 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-white mb-3">
                   Ready to Start?

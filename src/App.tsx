@@ -43,6 +43,7 @@ import {
   useNavigation,
 } from "./contexts/NavigationContext";
 import { motion } from "framer-motion";
+import SmoothScrollProvider from "./components/SmoothScrollProvider";
 
 const AppContent: React.FC = () => {
   const { isNavigating } = useNavigation();
@@ -52,8 +53,9 @@ const AppContent: React.FC = () => {
     <div className="relative min-h-screen bg-[--main-dark-bg] overflow-hidden">
       <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full filter blur-3xl" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/5 rounded-full filter blur-3xl" />
+      {/* Header rendered outside of relative z-10 container to ensure it's always on top */}
+      <Header />
       <div className="relative z-10">
-        <Header />
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -180,7 +182,9 @@ function App() {
   return (
     <Router>
       <NavigationProvider>
-        <AppContent />
+        <SmoothScrollProvider>
+          <AppContent />
+        </SmoothScrollProvider>
       </NavigationProvider>
     </Router>
   );

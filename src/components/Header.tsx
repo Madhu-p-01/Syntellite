@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useNavigation } from "../contexts/NavigationContext";
 import { FaCode } from "react-icons/fa6";
 import { GrMultiple } from "react-icons/gr";
@@ -61,10 +61,27 @@ const Header: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { handleSamePageNavigation } = useNavigation();
+  const navigate = useNavigate();
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [touchStartY, setTouchStartY] = useState(0);
 
   const handleDropdownToggle = (dropdown: string) => {
     setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
   };
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add("mobile-menu-open");
+    } else {
+      document.body.classList.remove("mobile-menu-open");
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.classList.remove("mobile-menu-open");
+    };
+  }, [isMenuOpen]);
 
   // Handle click outside to close dropdown
   useEffect(() => {
@@ -89,8 +106,8 @@ const Header: React.FC = () => {
   return (
     <>
       {/* Main Navigation */}
-      <header className="bg-black border-b border-gray-800 fixed top-0 left-0 right-0 z-50">
-        <div className="w-full px-4 sm:px-6 lg:px-8">
+      <header className="bg-black/95 backdrop-blur-md border border-gray-800 fixed top-4 left-4 right-4 z-[9999] rounded-[30px] shadow-2xl">
+        <div className="w-full px-6 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-20 max-w-none">
             {/* Logo - Left Side */}
             <div className="flex items-center">
@@ -116,7 +133,7 @@ const Header: React.FC = () => {
                 </button>
                 {activeDropdown === "Services" && (
                   <div
-                    className="absolute top-full left-[-475px] mt-6 w-[1400px] bg-black border border-gray-800 rounded-lg shadow-2xl z-50"
+                    className="fixed left-[15%] top-28 transform -translate-x-1/2 w-[1200px] bg-black/95 backdrop-blur-sm border border-gray-800 rounded-3xl shadow-2xl z-60"
                     style={{
                       animation: "dropdownSlide 0.2s ease-out forwards",
                       transformOrigin: "top center",
@@ -773,7 +790,7 @@ const Header: React.FC = () => {
               <Link
                 to="/contact"
                 onClick={() => handleSamePageNavigation("/contact")}
-                className="relative overflow-hidden bg-gradient-to-r from-purple-600 via-purple-500 to-indigo-600 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white px-6 py-2 rounded-md transition-all duration-500 font-medium animate-gradient flex items-center gap-2"
+                className="relative overflow-hidden bg-gradient-to-r from-purple-600 via-purple-500 to-indigo-600 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white px-6 py-2 rounded-[30px] transition-all duration-500 font-medium animate-gradient flex items-center gap-2"
                 style={{
                   backgroundSize: "200% 200%",
                   animation: "gradientShift 3s ease infinite",
@@ -785,7 +802,7 @@ const Header: React.FC = () => {
               <Link
                 to="/book-meeting"
                 onClick={() => handleSamePageNavigation("/book-meeting")}
-                className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-600 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white px-6 py-2 rounded-md transition-all duration-500 font-medium animate-gradient flex items-center gap-2"
+                className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-600 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white px-6 py-2 rounded-[30px] transition-all duration-500 font-medium animate-gradient flex items-center gap-2"
                 style={{
                   backgroundSize: "200% 200%",
                   animation: "gradientShift 3s ease infinite",
@@ -841,7 +858,12 @@ const Header: React.FC = () => {
                     </button>
                   </div>
                   {activeDropdown === "Services" && (
-                    <div className="pl-6 space-y-2 max-h-96 overflow-y-auto">
+                    <div
+                      className="pl-6 space-y-2 mobile-dropdown"
+                      onTouchMove={(e) => e.stopPropagation()}
+                      onWheel={(e) => e.stopPropagation()}
+                      onScroll={(e) => e.stopPropagation()}
+                    >
                       {/* Getting Started */}
                       <Link
                         to="/services"
@@ -861,46 +883,166 @@ const Header: React.FC = () => {
                         <div className="text-xs uppercase tracking-wider text-gray-500 font-medium px-3 py-1">
                           Web and Apps Solutions
                         </div>
-                        <Link
-                          to="/services/web-development"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/web-development");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/web-development");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Monitor className="w-4 h-4" />
                           Web Development
-                        </Link>
-                        <Link
-                          to="/services/app-development"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/app-development");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/app-development");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Smartphone className="w-4 h-4" />
                           App Development
-                        </Link>
-                        <Link
-                          to="/services/ecommerce-solutions"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/ecommerce-solutions");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/ecommerce-solutions");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <ShoppingCart className="w-4 h-4" />
                           ECommerce Solutions
-                        </Link>
-                        <Link
-                          to="/services/payment-gateway"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/payment-gateway");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/payment-gateway");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <CreditCard className="w-4 h-4" />
                           <span className="flex items-center gap-2">
@@ -909,14 +1051,44 @@ const Header: React.FC = () => {
                               NEW
                             </span>
                           </span>
-                        </Link>
-                        <Link
-                          to="/services/payment-orchestration"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/payment-orchestration");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/payment-orchestration");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Workflow className="w-4 h-4" />
                           <span className="flex items-center gap-2">
@@ -925,21 +1097,48 @@ const Header: React.FC = () => {
                               NEW
                             </span>
                           </span>
-                        </Link>
-                        <Link
-                          to="/services/progressive-web-apps"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/progressive-web-apps"
-                            );
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/progressive-web-apps");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/progressive-web-apps");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Globe className="w-4 h-4" />
                           Progressive Web Apps
-                        </Link>
+                        </button>
                       </div>
 
                       {/* Engineering and AI */}
@@ -947,88 +1146,252 @@ const Header: React.FC = () => {
                         <div className="text-xs uppercase tracking-wider text-gray-500 font-medium px-3 py-1">
                           Engineering and AI
                         </div>
-                        <Link
-                          to="/services/software-development"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/software-development"
-                            );
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/software-development");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/software-development");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Code className="w-4 h-4" />
                           Software Development
-                        </Link>
-                        <Link
-                          to="/services/api-microservices"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/api-microservices"
-                            );
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/api-microservices");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/api-microservices");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Server className="w-4 h-4" />
                           API & Microservices
-                        </Link>
-                        <Link
-                          to="/services/ai-automation"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation("/services/ai-automation");
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/ai-automation");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/ai-automation");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Brain className="w-4 h-4" />
                           AI and Automation
-                        </Link>
-                        <Link
-                          to="/services/white-label-solutions"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/white-label-solutions"
-                            );
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/white-label-solutions");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/white-label-solutions");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Shield className="w-4 h-4" />
                           White Label Solutions
-                        </Link>
-                        <Link
-                          to="/services/saas-development"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/saas-development"
-                            );
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/saas-development");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/saas-development");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Database className="w-4 h-4" />
                           SaaS Development
-                        </Link>
-                        <Link
-                          to="/services/system-integration"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/system-integration"
-                            );
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/system-integration");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/system-integration");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Settings className="w-4 h-4" />
                           System Integration
-                        </Link>
+                        </button>
                       </div>
 
                       {/* Build, Design and DevOps */}
@@ -1036,14 +1399,43 @@ const Header: React.FC = () => {
                         <div className="text-xs uppercase tracking-wider text-gray-500 font-medium px-3 py-1">
                           Build, Design and DevOps
                         </div>
-                        <Link
-                          to="/services/ui-ux-design"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation("/services/ui-ux-design");
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/ui-ux-design");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/ui-ux-design");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Palette className="w-4 h-4" />
                           <span className="flex items-center gap-2">
@@ -1052,17 +1444,44 @@ const Header: React.FC = () => {
                               NEW
                             </span>
                           </span>
-                        </Link>
-                        <Link
-                          to="/services/cloud-operations"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/cloud-operations"
-                            );
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/cloud-operations");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/cloud-operations");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Target className="w-4 h-4" />
                           <span className="flex items-center gap-2">
@@ -1071,61 +1490,175 @@ const Header: React.FC = () => {
                               NEW
                             </span>
                           </span>
-                        </Link>
-                        <Link
-                          to="/services/software-hardware-development"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/software-hardware-development"
-                            );
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate(
+                                  "/services/software-hardware-development"
+                                );
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate(
+                                  "/services/software-hardware-development"
+                                );
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Wrench className="w-4 h-4" />
                           Software + Hardware
-                        </Link>
-                        <Link
-                          to="/services/rd-prototyping"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/rd-prototyping"
-                            );
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/rd-prototyping");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/rd-prototyping");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Lightbulb className="w-4 h-4" />
                           R&D and Prototyping
-                        </Link>
-                        <Link
-                          to="/services/pcb-hardware-design"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/pcb-hardware-design"
-                            );
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/pcb-hardware-design");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/pcb-hardware-design");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Search className="w-4 h-4" />
                           PCB Hardware Design
-                        </Link>
-                        <Link
-                          to="/services/devops-cicd"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation("/services/devops-cicd");
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/devops-cicd");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/devops-cicd");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <CloudLightning className="w-4 h-4" />
                           DevOps CI/CD
-                        </Link>
+                        </button>
                       </div>
 
                       {/* Growth Strategy and Consulting */}
@@ -1133,44 +1666,125 @@ const Header: React.FC = () => {
                         <div className="text-xs uppercase tracking-wider text-gray-500 font-medium px-3 py-1">
                           Growth Strategy and Consulting
                         </div>
-                        <Link
-                          to="/services/seo-optimization"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/seo-optimization"
-                            );
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/seo-optimization");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/seo-optimization");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Puzzle className="w-4 h-4" />
                           SEO Optimization
-                        </Link>
-                        <Link
-                          to="/services/digital-marketing"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/digital-marketing"
-                            );
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/digital-marketing");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/digital-marketing");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Figma className="w-4 h-4" />
                           Digital Marketing
-                        </Link>
-                        <Link
-                          to="/services/content-creation"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/content-creation"
-                            );
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/content-creation");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/content-creation");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <CloudLightning className="w-4 h-4" />
                           <span className="flex items-center gap-2">
@@ -1179,17 +1793,44 @@ const Header: React.FC = () => {
                               NEW
                             </span>
                           </span>
-                        </Link>
-                        <Link
-                          to="/services/mvp-development"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/mvp-development"
-                            );
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/mvp-development");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/mvp-development");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <TrendingUp className="w-4 h-4" />
                           <span className="flex items-center gap-2">
@@ -1198,17 +1839,44 @@ const Header: React.FC = () => {
                               NEW
                             </span>
                           </span>
-                        </Link>
-                        <Link
-                          to="/services/consulting-strategy"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/consulting-strategy"
-                            );
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/consulting-strategy");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/consulting-strategy");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <Briefcase className="w-4 h-4" />
                           <span className="flex items-center gap-2">
@@ -1217,21 +1885,48 @@ const Header: React.FC = () => {
                               NEW
                             </span>
                           </span>
-                        </Link>
-                        <Link
-                          to="/services/data-analytics"
-                          onClick={() => {
-                            setActiveDropdown(null);
-                            setIsMenuOpen(false);
-                            handleSamePageNavigation(
-                              "/services/data-analytics"
-                            );
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/data-analytics");
+                              }, 100);
+                            }
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50"
+                          onTouchStart={(e) => {
+                            setTouchStartY(e.touches[0].clientY);
+                            setIsScrolling(false);
+                          }}
+                          onTouchMove={(e) => {
+                            const touchY = e.touches[0].clientY;
+                            const diff = Math.abs(touchY - touchStartY);
+                            if (diff > 10) {
+                              setIsScrolling(true);
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            if (!isScrolling) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                              setTimeout(() => {
+                                navigate("/services/data-analytics");
+                              }, 100);
+                            }
+                            setTimeout(() => setIsScrolling(false), 100);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
+                          style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                           <BarChart3 className="w-4 h-4" />
                           Data Analytics
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   )}

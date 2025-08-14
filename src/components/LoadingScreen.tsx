@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import favIcon from "../assets/fav.png";
+import DesktopVideo from "../assets/media/Desktop.mp4";
 
 interface LoadingScreenProps {
   onLoadingComplete: () => void;
@@ -9,6 +10,8 @@ interface LoadingScreenProps {
 const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [resourcesLoaded, setResourcesLoaded] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   const texts = [
     "Ready to start your project?",
@@ -17,6 +20,64 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
   ];
 
   useEffect(() => {
+    // Preload critical resources
+    const preloadResources = async () => {
+      const resources = [
+        // Preload video
+        new Promise<void>((resolve) => {
+          const video = document.createElement('video');
+          video.preload = 'auto';
+          video.oncanplaythrough = () => {
+            setLoadingProgress(prev => prev + 50);
+            resolve();
+          };
+          video.onerror = () => {
+            console.warn('Video preload failed, continuing...');
+            setLoadingProgress(prev => prev + 50);
+            resolve();
+          };
+          video.src = DesktopVideo;
+        }),
+        
+        // Preload favicon
+        new Promise<void>((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            setLoadingProgress(prev => prev + 25);
+            resolve();
+          };
+          img.onerror = () => {
+            setLoadingProgress(prev => prev + 25);
+            resolve();
+          };
+          img.src = favIcon;
+        }),
+        
+        // Simulate other critical resources loading
+        new Promise<void>((resolve) => {
+          setTimeout(() => {
+            setLoadingProgress(prev => prev + 25);
+            resolve();
+          }, 500);
+        })
+      ];
+
+      try {
+        await Promise.all(resources);
+        setResourcesLoaded(true);
+      } catch (error) {
+        console.warn('Some resources failed to preload:', error);
+        setResourcesLoaded(true);
+      }
+    };
+
+    preloadResources();
+  }, []);
+
+  useEffect(() => {
+    // Only start text animation after resources are loaded
+    if (!resourcesLoaded) return;
+
     // Text animation sequence
     const textInterval = setInterval(() => {
       setCurrentTextIndex((prev) => {
@@ -32,16 +93,16 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
           return prev;
         }
       });
-    }, 1200); // Each text shows for 0.8 seconds - balanced "tak tak tak"
+    }, 1200);
 
     return () => clearInterval(textInterval);
-  }, [onLoadingComplete, texts.length]);
+  }, [onLoadingComplete, texts.length, resourcesLoaded]);
 
   return (
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black px-8 overflow-hidden"
+          className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black px-8 overflow-hidden"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, ease: "easeInOut" }}

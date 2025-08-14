@@ -1,6 +1,6 @@
 import React from "react";
 import Hero from "../components/Hero";
-import BuildForBusiness from "../components/BuildForBusiness";
+import BoldIdeasSection from "../components/BoldIdeasSection";
 import OurServices from "../components/OurServices";
 import OurProcess from "../components/OurProcess";
 import SEO from "../components/SEO";
@@ -16,7 +16,7 @@ const HomePage = () => {
         canonical="https://syntellite.com/"
       />
       <Hero />
-      <BuildForBusiness />
+      <BoldIdeasSection />
       <OurServices />
       <OurProcess />
     </>
