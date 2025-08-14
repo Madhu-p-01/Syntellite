@@ -191,77 +191,77 @@ export default function OurServices() {
     {
       title: "Web Development",
       icon: Code,
-      gradient: "bg-gradient-to-br from-purple-500 via-blue-500 to-purple-600 animate-gradient-x bg-[length:200%_200%]",
+      gradient: "bg-gradient-to-br from-purple-500 via-blue-500 to-purple-600",
       description: "Custom websites, web apps, and e-commerce solutions built with modern technologies.",
       technologies: ['React', 'Next.js', 'Node.js', 'TypeScript']
     },
     {
       title: "Mobile Apps",
       icon: Smartphone,
-      gradient: "bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 animate-gradient-x bg-[length:200%_200%]",
+      gradient: "bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500",
       description: "Native & cross-platform mobile applications for iOS and Android.",
       technologies: ['React Native', 'Flutter', 'Swift', 'Kotlin']
     },
     {
       title: "UI/UX Design",
       icon: Palette,
-      gradient: "bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 animate-gradient-x bg-[length:200%_200%]",
+      gradient: "bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500",
       description: "User-centered design that creates intuitive and engaging experiences.",
       technologies: ['Figma', 'Adobe XD', 'Sketch', 'Prototyping']
     },
     {
       title: "Cloud Solutions",
       icon: Cloud,
-      gradient: "bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 animate-gradient-x bg-[length:200%_200%]",
+      gradient: "bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500",
       description: "Scalable cloud infrastructure and deployment solutions.",
       technologies: ['AWS', 'Azure', 'GCP', 'Docker']
     },
     {
       title: "Data Solutions",
       icon: Database,
-      gradient: "bg-gradient-to-br from-purple-500 via-blue-500 to-purple-600 animate-gradient-x bg-[length:200%_200%]",
+      gradient: "bg-gradient-to-br from-purple-500 via-blue-500 to-purple-600",
       description: "Advanced data analytics, processing, and visualization solutions.",
       technologies: ['Python', 'SQL', 'MongoDB', 'Analytics']
     },
     {
       title: "Analytics & Insights",
       icon: BarChart3,
-      gradient: "bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 animate-gradient-x bg-[length:200%_200%]",
+      gradient: "bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500",
       description: "Business intelligence and data-driven insights for better decision making.",
       technologies: ['Tableau', 'Power BI', 'D3.js', 'Charts']
     },
     {
       title: "Payment Orchestration",
       icon: CreditCard,
-      gradient: "bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 animate-gradient-x bg-[length:200%_200%]",
+      gradient: "bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500",
       description: "Seamless payment processing and gateway integration solutions.",
       technologies: ['Stripe', 'PayPal', 'Razorpay', 'APIs']
     },
     {
       title: "R&D Prototyping",
       icon: Lightbulb,
-      gradient: "bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 animate-gradient-x bg-[length:200%_200%]",
+      gradient: "bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500",
       description: "Rapid prototyping and research & development for innovative solutions.",
       technologies: ['MVP', 'Prototyping', 'Innovation', 'Testing']
     },
     {
       title: "Consultancy & Strategy",
       icon: Users,
-      gradient: "bg-gradient-to-br from-purple-500 via-blue-500 to-pink-500 animate-gradient-x bg-[length:200%_200%]",
+      gradient: "bg-gradient-to-br from-purple-500 via-blue-500 to-pink-500",
       description: "Strategic technology consulting and business transformation guidance.",
       technologies: ['Strategy', 'Planning', 'Architecture', 'Consulting']
     },
     {
       title: "Digital Marketing",
       icon: Megaphone,
-      gradient: "bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 animate-gradient-x bg-[length:200%_200%]",
+      gradient: "bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500",
       description: "Comprehensive digital marketing strategies to boost your online presence and growth.",
       technologies: ['SEO', 'SEM', 'Social', 'Content']
     }
   ];
 
   return (
-    <div className="bg-black text-white py-16">
+    <div className="bg-black text-white pb-16">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -300,7 +300,7 @@ export default function OurServices() {
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           
           {/* Web Development - Large Card with Content */}
-          <div className="bg-gradient-to-br from-purple-500 via-blue-500 to-purple-600 rounded-3xl p-6 lg:p-8 relative overflow-hidden lg:col-span-2 animate-gradient-x bg-[length:200%_200%]">
+          <div className="bg-gradient-to-br from-purple-500 via-blue-500 to-purple-600 rounded-3xl p-6 lg:p-8 relative overflow-hidden lg:col-span-2 animate-card-live-movement">
             <div className="relative z-10">
               <div className="text-white mb-4">
                 <Code className="w-8 h-8" />
@@ -327,7 +327,7 @@ export default function OurServices() {
           </div>
           
           {/* Analytics Card */}
-          <div className="bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-3xl p-6 lg:p-8 relative overflow-hidden animate-gradient-x bg-[length:200%_200%]">
+          <div className="bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-3xl p-6 lg:p-8 relative overflow-hidden animate-card-float">
             <div className="relative z-10">
               <div className="text-white mb-4">
                 <BarChart3 className="w-8 h-8" />
@@ -350,7 +350,7 @@ export default function OurServices() {
           </div>
           
           {/* Mobile Apps with Content */}
-          <div className="bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 rounded-3xl p-6 lg:p-8 relative overflow-hidden animate-gradient-x bg-[length:200%_200%]">
+          <div className="bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 rounded-3xl p-6 lg:p-8 relative overflow-hidden animate-card-breathe">
             <div className="relative z-10">
               <div className="text-white mb-4">
                 <Smartphone className="w-8 h-8" />
@@ -403,7 +403,7 @@ export default function OurServices() {
           </div>
           
           {/* Cloud Solutions with Content */}
-          <div className="bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 rounded-3xl p-6 lg:p-8 relative overflow-hidden animate-gradient-x bg-[length:200%_200%]">
+          <div className="bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 rounded-3xl p-6 lg:p-8 relative overflow-hidden animate-card-tilt">
             <div className="relative z-10">
               <div className="text-white mb-4">
                 <Cloud className="w-8 h-8" />
@@ -430,7 +430,7 @@ export default function OurServices() {
           </div>
           
           {/* Data Solutions - Large Card with Stats */}
-          <div className="bg-gradient-to-br from-purple-500 via-blue-500 to-purple-600 rounded-3xl p-6 lg:p-8 relative overflow-hidden lg:col-span-2 animate-gradient-x bg-[length:200%_200%]">
+          <div className="bg-gradient-to-br from-purple-500 via-blue-500 to-purple-600 rounded-3xl p-6 lg:p-8 relative overflow-hidden lg:col-span-2">
             <div className="relative z-10">
               <div className="text-white mb-4">
                 <Database className="w-8 h-8" />
@@ -472,7 +472,7 @@ export default function OurServices() {
           </div>
           
           {/* Payment Orchestration */}
-          <div className="bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 rounded-3xl p-6 lg:p-8 relative overflow-hidden animate-gradient-x bg-[length:200%_200%]">
+          <div className="bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 rounded-3xl p-6 lg:p-8 relative overflow-hidden">
             <div className="relative z-10">
               <div className="text-white mb-4">
                 <CreditCard className="w-8 h-8" />
@@ -497,7 +497,7 @@ export default function OurServices() {
           </div>
           
           {/* R&D Prototyping */}
-          <div className="bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-3xl p-6 lg:p-8 relative overflow-hidden animate-gradient-x bg-[length:200%_200%]">
+          <div className="bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-3xl p-6 lg:p-8 relative overflow-hidden">
             <div className="relative z-10">
               <div className="text-white mb-4">
                 <Lightbulb className="w-8 h-8" />
@@ -510,8 +510,8 @@ export default function OurServices() {
               </p>
               <div className="flex items-center gap-1">
                 <div className="w-2 h-2 bg-white/40 rounded-full animate-pulse"></div>
-                <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
-                <div className="w-2 h-2 bg-white/80 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+                <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                <div className="w-2 h-2 bg-white/80 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
               </div>
             </div>
             <div className="absolute inset-0 opacity-20">
@@ -522,7 +522,7 @@ export default function OurServices() {
           </div>
           
           {/* Consultancy and Strategy */}
-          <div className="bg-gradient-to-br from-purple-500 via-blue-500 to-pink-500 rounded-3xl p-6 lg:p-8 relative overflow-hidden animate-gradient-x bg-[length:200%_200%]">
+          <div className="bg-gradient-to-br from-purple-500 via-blue-500 to-pink-500 rounded-3xl p-6 lg:p-8 relative overflow-hidden">
             <div className="relative z-10">
               <div className="text-white mb-4">
                 <Users className="w-8 h-8" />
@@ -547,7 +547,7 @@ export default function OurServices() {
           </div>
           
           {/* Digital Marketing */}
-          <div className="bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 rounded-3xl p-6 lg:p-8 relative overflow-hidden animate-gradient-x bg-[length:200%_200%]">
+          <div className="bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 rounded-3xl p-6 lg:p-8 relative overflow-hidden">
             <div className="relative z-10">
               <div className="text-white mb-4">
                 <Megaphone className="w-8 h-8" />

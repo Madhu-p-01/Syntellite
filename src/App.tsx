@@ -38,6 +38,9 @@ import SoftwareHardwarePage from "./pages/services/SoftwareHardwarePage";
 import RDPrototypingPage from "./pages/services/RDPrototypingPage";
 import PCBHardwareDesignPage from "./pages/services/PCBHardwareDesignPage";
 import BookMeetingPage from "./pages/BookMeetingPage";
+import LabsCareersComingSoon from "./pages/LabsCareersComingSoon";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsOfUsePage from "./pages/TermsOfUsePage";
 import {
   NavigationProvider,
   useNavigation,
@@ -157,6 +160,12 @@ const AppContent: React.FC = () => {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/book-meeting" element={<BookMeetingPage />} />
             <Route path="/coming-soon" element={<ComingSoonPage />} />
+            <Route
+              path="/labs-careers-coming-soon"
+              element={<LabsCareersComingSoon />}
+            />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/terms-of-use" element={<TermsOfUsePage />} />
             {/* Catch all other routes and redirect to home */}
             <Route path="*" element={<HomePage />} />
           </Routes>

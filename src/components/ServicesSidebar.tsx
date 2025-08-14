@@ -255,22 +255,28 @@ const ServicesSidebar: React.FC<ServicesSidebarProps> = ({
 
   const handleNavigation = (path: string, event: React.MouseEvent) => {
     event.preventDefault();
+    event.stopPropagation();
 
     // Save current scroll position before navigation
     saveScrollPosition();
 
-    // Navigate to the new path
-    navigate(path);
-
-    // Scroll to top of the content area after navigation
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 100);
-
-    // Don't close sidebar on desktop, only on mobile
-    if (onClose && window.innerWidth < 1024) {
+    // Always close sidebar on mobile IMMEDIATELY
+    const isMobile = window.innerWidth < 1024;
+    if (onClose && isMobile) {
+      // Close immediately without any delay
       onClose();
     }
+
+    // Small delay to ensure sidebar closes before navigation
+    setTimeout(() => {
+      // Navigate to the new path
+      navigate(path);
+
+      // Scroll to top of the content area after navigation
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 100);
+    }, isMobile ? 50 : 0); // Small delay only on mobile to ensure sidebar closes
   };
 
   return (
@@ -369,12 +375,12 @@ const ServicesSidebar: React.FC<ServicesSidebarProps> = ({
               Get expert consultation on your project requirements.
             </p>
             <a
-              href="/contact"
-              onClick={(e) => handleNavigation("/contact", e)}
+              href="/book-meeting"
+              onClick={(e) => handleNavigation("/book-meeting", e)}
               className="inline-flex items-center gap-2 text-xs bg-purple-600 text-white px-3 py-2 rounded-lg hover:bg-purple-700 transition-colors cursor-pointer"
             >
               <Users className="w-3 h-3" />
-              Free Consultation
+              Book a free consultation
             </a>
           </div>
         </div>

@@ -64,12 +64,137 @@ body {
 
 /* Gradient animation for service cards */
 @keyframes gradientX {
-  0%,
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 200% 50%;
+  }
+  75% {
+    background-position: 100% 50%;
+  }
   100% {
     background-position: 0% 50%;
   }
-  50% {
+}
+
+/* Fast and more visible gradient animation */
+@keyframes gradientXFast {
+  0% {
+    background-position: 0% 50%;
+  }
+  20% {
     background-position: 100% 50%;
+  }
+  40% {
+    background-position: 200% 50%;
+  }
+  60% {
+    background-position: 300% 50%;
+  }
+  80% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Super fast and highly visible gradient animation */
+@keyframes gradientXSuperFast {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 200% 50%;
+  }
+  75% {
+    background-position: 300% 50%;
+  }
+  100% {
+    background-position: 400% 50%;
+  }
+}
+
+/* Subtle floating animation for service cards */
+@keyframes cardFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+
+/* Gentle breathing animation */
+@keyframes cardBreathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Subtle rotation animation */
+@keyframes cardTilt {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0px);
+  }
+  25% {
+    transform: rotate(1deg) translateY(-4px);
+  }
+  75% {
+    transform: rotate(-1deg) translateY(-4px);
+  }
+}
+
+/* Combined movement and color animation */
+@keyframes cardLive {
+  0% {
+    transform: translateY(0px) scale(1);
+    background-position: 0% 50%;
+  }
+  25% {
+    transform: translateY(-6px) scale(1.02);
+    background-position: 100% 50%;
+  }
+  50% {
+    transform: translateY(-8px) scale(1.03);
+    background-position: 200% 50%;
+  }
+  75% {
+    transform: translateY(-6px) scale(1.02);
+    background-position: 100% 50%;
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+    background-position: 0% 50%;
+  }
+}
+
+/* Movement only animation (no horizontal color wipe) */
+@keyframes cardLiveMovement {
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+  25% {
+    transform: translateY(-6px) scale(1.02);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.03);
+  }
+  75% {
+    transform: translateY(-6px) scale(1.02);
+  }
+  100% {
+    transform: translateY(0px) scale(1);
   }
 }
 
@@ -167,7 +292,38 @@ body {
 }
 
 .animate-gradient-x-fast {
-  animation: gradientX 4s linear infinite;
+  animation: gradientXFast 2s linear infinite;
+}
+
+.animate-gradient-x-super-fast {
+  animation: gradientXSuperFast 1.5s linear infinite;
+}
+
+.animate-gradient-x-visible {
+  animation: gradientXFast 2.5s ease-in-out infinite;
+  background-size: 400% 400% !important;
+}
+
+/* New service card animation classes */
+.animate-card-float {
+  animation: cardFloat 4s ease-in-out infinite;
+}
+
+.animate-card-breathe {
+  animation: cardBreathe 3s ease-in-out infinite;
+}
+
+.animate-card-tilt {
+  animation: cardTilt 6s ease-in-out infinite;
+}
+
+.animate-card-live {
+  animation: cardLive 8s ease-in-out infinite;
+  background-size: 300% 300% !important;
+}
+
+.animate-card-live-movement {
+  animation: cardLiveMovement 8s ease-in-out infinite;
 }
 
 /* Lenis Smooth Scroll CSS */
@@ -196,9 +352,9 @@ html.lenis {
   header {
     position: fixed !important;
     z-index: 9999 !important;
-    top: 1rem !important;
-    left: 1rem !important;
-    right: 1rem !important;
+    top: 0rem !important;
+    left: 0rem !important;
+    right: 0rem !important;
     transform: none !important;
     opacity: 1 !important;
     visibility: visible !important;
@@ -259,9 +415,9 @@ body header,
 #root header,
 .App header {
   position: fixed !important;
-  top: 1rem !important;
-  left: 1rem !important;
-  right: 1rem !important;
+  top: 0rem !important;
+  left: 0rem !important;
+  right: 0rem !important;
   z-index: 9999 !important;
   opacity: 1 !important;
   visibility: visible !important;
@@ -304,7 +460,7 @@ body header,
     position: fixed !important;
     width: 100% !important;
   }
-  
+
   /* Fix mobile dropdown positioning and scrolling */
   .mobile-dropdown {
     max-height: calc(100vh - 450px) !important;
@@ -312,28 +468,29 @@ body header,
     overscroll-behavior: contain !important;
     -webkit-overflow-scrolling: touch !important;
   }
-  
+
   /* Ensure dropdown stays within screen bounds */
   .mobile-dropdown::-webkit-scrollbar {
     width: 4px;
   }
-  
+
   .mobile-dropdown::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 2px;
   }
-  
+
   .mobile-dropdown::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.3);
     border-radius: 2px;
   }
-  
+
   .mobile-dropdown::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.5);
   }
-  
+
   /* Enhanced mobile touch handling */
-  button, a {
+  button,
+  a {
     -webkit-tap-highlight-color: transparent !important;
     -webkit-touch-callout: none !important;
     -webkit-user-select: none !important;
@@ -343,7 +500,7 @@ body header,
     user-select: none !important;
     touch-action: manipulation !important;
   }
-  
+
   /* Ensure mobile navigation buttons are properly sized for touch */
   .mobile-dropdown button {
     min-height: 44px !important;
@@ -353,7 +510,7 @@ body header,
     background: transparent !important;
     cursor: pointer !important;
   }
-  
+
   /* Fix mobile navigation link styling */
   .mobile-dropdown button:active,
   .mobile-dropdown button:focus {

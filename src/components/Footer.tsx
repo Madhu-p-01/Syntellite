@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import {
   Github,
   Twitter,
@@ -57,21 +57,19 @@ const Footer = () => {
   const isServicesPage = location.pathname.startsWith("/services");
 
   return (
-    <footer
-      className={cn("bg-[--main-dark-bg] w-full", isServicesPage && "lg:ml-80")}
-    >
+    <footer className="bg-black w-full border-t-white border-t-[0.1px] border-opacity-1">
       {/* Main Footer Content */}
       <div
         className={cn(
           "w-full mx-auto py-12 sm:py-24",
           isServicesPage
-            ? "px-4 sm:px-6 lg:px-8 max-w-none"
+            ? "px-4 sm:px-6 lg:pl-96 lg:pr-12 max-w-none"
             : "max-w-[1536px] px-4 sm:px-6 lg:px-20"
         )}
       >
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
           {/* Logo and Social Links */}
-          <div className="col-span-2 lg:col-span-1 flex flex-col gap-8">
+          <div className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-1 flex flex-col gap-8">
             <div className="flex items-start">
               <img src={logo} alt="Syntellite Logo" className="h-8 w-auto" />
             </div>
@@ -130,35 +128,67 @@ const Footer = () => {
           {/* Web and Apps Solutions */}
           <div className="col-span-1 flex flex-col gap-4">
             <FooterSection title="Web and Apps Solutions">
-              <FooterLink href="/services/web-development">Web Development</FooterLink>
-              <FooterLink href="/services/app-development">App Development</FooterLink>
-              <FooterLink href="/services/ecommerce-solutions">ECommerce Solutions</FooterLink>
-              <FooterLink href="/services/payment-gateway">Payment Gateway</FooterLink>
-              <FooterLink href="/services/payment-orchestration">Payment Orchestration</FooterLink>
-              <FooterLink href="/services/progressive-web-apps">Progressive Web Apps</FooterLink>
+              <FooterLink href="/services/web-development">
+                Web Development
+              </FooterLink>
+              <FooterLink href="/services/app-development">
+                App Development
+              </FooterLink>
+              <FooterLink href="/services/ecommerce-solutions">
+                ECommerce Solutions
+              </FooterLink>
+              <FooterLink href="/services/payment-gateway">
+                Payment Gateway
+              </FooterLink>
+              <FooterLink href="/services/payment-orchestration">
+                Payment Orchestration
+              </FooterLink>
+              <FooterLink href="/services/progressive-web-apps">
+                Progressive Web Apps
+              </FooterLink>
             </FooterSection>
           </div>
 
           {/* Engineering and AI */}
           <div className="col-span-1 flex flex-col gap-4">
             <FooterSection title="Engineering and AI">
-              <FooterLink href="/services/software-development">Software Development</FooterLink>
-              <FooterLink href="/services/api-microservices">API & Microservices</FooterLink>
-              <FooterLink href="/services/ai-automation">AI and Automation</FooterLink>
-              <FooterLink href="/services/white-label-solutions">White Label Solutions</FooterLink>
+              <FooterLink href="/services/software-development">
+                Software Development
+              </FooterLink>
+              <FooterLink href="/services/api-microservices">
+                API & Microservices
+              </FooterLink>
+              <FooterLink href="/services/ai-automation">
+                AI and Automation
+              </FooterLink>
+              <FooterLink href="/services/white-label-solutions">
+                White Label Solutions
+              </FooterLink>
               <FooterLink href="/services/saas-development">SAAS</FooterLink>
-              <FooterLink href="/services/system-integration">System Integration</FooterLink>
+              <FooterLink href="/services/system-integration">
+                System Integration
+              </FooterLink>
             </FooterSection>
           </div>
 
           {/* Build, Design and DevOps */}
           <div className="col-span-1 flex flex-col gap-4">
             <FooterSection title="Build, Design and DevOps">
-              <FooterLink href="/services/ui-ux-design">UI/UX Design</FooterLink>
-              <FooterLink href="/services/cloud-operations">Cloud Operations</FooterLink>
-              <FooterLink href="/services/software-hardware-development">Software + Hardware Development</FooterLink>
-              <FooterLink href="/services/rd-prototyping">R&D and Prototyping</FooterLink>
-              <FooterLink href="/services/pcb-hardware-design">PCB and Hardware Design</FooterLink>
+              <FooterLink href="/services/ui-ux-design">
+                UI/UX Design
+              </FooterLink>
+              <FooterLink href="/services/cloud-operations">
+                Cloud Operations
+              </FooterLink>
+              <FooterLink href="/services/software-hardware-development">
+                Software + Hardware Development
+              </FooterLink>
+              <FooterLink href="/services/rd-prototyping">
+                R&D and Prototyping
+              </FooterLink>
+              <FooterLink href="/services/pcb-hardware-design">
+                PCB and Hardware Design
+              </FooterLink>
               <FooterLink href="/services/devops-cicd">DevOps CI/CD</FooterLink>
             </FooterSection>
           </div>
@@ -167,11 +197,21 @@ const Footer = () => {
           <div className="col-span-1 flex flex-col gap-4">
             <FooterSection title="Growth Strategy and Consulting">
               <FooterLink href="/services/seo-optimization">SEO</FooterLink>
-              <FooterLink href="/services/digital-marketing">Digital Marketing</FooterLink>
-              <FooterLink href="/services/content-creation">Content Creation</FooterLink>
-              <FooterLink href="/services/mvp-development">Prototyping and MVP</FooterLink>
-              <FooterLink href="/services/consulting-strategy">Consulting & Strategy</FooterLink>
-              <FooterLink href="/services/data-analytics">Data Analytics</FooterLink>
+              <FooterLink href="/services/digital-marketing">
+                Digital Marketing
+              </FooterLink>
+              <FooterLink href="/services/content-creation">
+                Content Creation
+              </FooterLink>
+              <FooterLink href="/services/mvp-development">
+                Prototyping and MVP
+              </FooterLink>
+              <FooterLink href="/services/consulting-strategy">
+                Consulting & Strategy
+              </FooterLink>
+              <FooterLink href="/services/data-analytics">
+                Data Analytics
+              </FooterLink>
             </FooterSection>
           </div>
         </div>
@@ -183,14 +223,22 @@ const Footer = () => {
           className={cn(
             "w-full mx-auto py-8",
             isServicesPage
-              ? "px-4 sm:px-6 lg:px-8 max-w-none"
+              ? "px-4 sm:px-6 lg:pl-96 lg:pr-12 max-w-none"
               : "max-w-[1536px] px-12"
           )}
         >
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-between">
             <div className="text-[#898989] text-[11px] font-medium leading-4">
-              © {new Date().getFullYear()} Syntellite Innovations Pvt Ltd. All
-              rights reserved.
+              © {new Date().getFullYear()} Syntellite Innovations Private
+              Limited. All rights reserved.
+            </div>
+            <div className="flex items-center gap-6">
+              <FooterLink href="/privacy-policy" className="text-[11px]">
+                Privacy Policy
+              </FooterLink>
+              <FooterLink href="/terms-of-use" className="text-[11px]">
+                Terms of Use
+              </FooterLink>
             </div>
           </div>
         </div>

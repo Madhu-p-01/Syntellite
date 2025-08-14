@@ -1,9 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
-import DesktopVideo from "../assets/media/Desktop.mp4";
+import { useNavigate } from "react-router-dom";
+import MobileVideoWebM from "../assets/media/_MConverter.eu_Mobile.webm";
+import DesktopVideoWebM from "../assets/media/_MConverter.eu_Desktop.webm";
+import DesktopThumbnail from "../assets/desktop-thumbnail-hero.png";
+import MobileThumbnail from "../assets/mobile-thumbnail-hero.png";
 
-const VideoBackground = () => {
+const VideoBackground = ({ isMobile }: { isMobile: boolean }) => {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+
   return (
     <>
+      {/* Thumbnail Image */}
+      <div
+        className="absolute inset-0 w-full h-full object-cover z-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${
+            isMobile ? MobileThumbnail : DesktopThumbnail
+          })`,
+          opacity: isVideoLoaded ? 0 : 1,
+          transition: "opacity 0.5s ease-in-out",
+        }}
+      />
+
       {/* Full Screen Video Background */}
       <video
         className="absolute inset-0 w-full h-full object-cover z-0"
@@ -12,11 +30,20 @@ const VideoBackground = () => {
         muted
         playsInline
         preload="auto"
+        onLoadedData={() => setIsVideoLoaded(true)}
         onError={(e) => {
           console.error("Video failed to load:", e);
         }}
+        key={isMobile ? "mobile" : "desktop"}
+        style={{
+          opacity: isVideoLoaded ? 1 : 0,
+          transition: "opacity 0.5s ease-in-out",
+        }}
       >
-        <source src={DesktopVideo} type="video/mp4" />
+        <source
+          src={isMobile ? MobileVideoWebM : DesktopVideoWebM}
+          type="video/webm"
+        />
         Your browser does not support the video tag.
       </video>
 
@@ -31,6 +58,38 @@ const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  // Add specific styles for 1205x551 resolution
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.textContent = `
+      @media (width: 1280px) and (height: 720px) {
+        .hero-heading-1205 {
+          font-size: 5rem !important;
+        }
+        .hero-subtitle-1205 {
+          font-size: 2rem !important;
+        }
+        .hero-content-1205 {
+          align-items: center !important;
+          transform: translateY(-10vh) !important;
+        }
+        .hero-container-1205 {
+          margin-top: 200px !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
+  const handleBookMeeting = () => {
+    navigate("/book-meeting");
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -81,32 +140,32 @@ const Hero = () => {
     <div
       ref={heroRef}
       className="relative"
-      style={{ height: "100vh" }} // Fixed: Match video height to eliminate space
+      style={{ height: "100svh" }} // Changed to svh for better mobile support
     >
       {/* Fixed Video Background - stays pinned until text scroll is complete */}
       <div
         className="w-full h-screen overflow-hidden"
         style={{
-          position: scrollY < sectionScrollStart ? "fixed" : "absolute",
-          top: scrollY < sectionScrollStart ? "0" : "0px",
+          position: "sticky",
+          top: "0",
           left: "0",
-          zIndex: scrollY < sectionScrollStart ? 1 : -10, // Move behind content when scrolled
+          zIndex: 1,
         }}
       >
-        <VideoBackground />
+        <VideoBackground isMobile={isMobile} />
 
         {/* Hero Text Content */}
         <div
           ref={textRef}
-          className="absolute inset-0 flex items-end"
+          className="absolute inset-0 flex items-center hero-content-1205"
           style={{
             marginTop: "0vh",
-            transform: isMobile ? "translateY(-12vh)" : "translateY(10vh)", // Reduced upward transform to show subtitle and button
+            transform: isMobile ? "translateY(15vh)" : "translateY(9vh)", // Moved up to show button
             paddingBottom: "0vh",
             zIndex: scrollY < sectionScrollStart ? 20 : 20, // Lower z-index when scrolled
           }}
         >
-          <div className="w-full max-w-none px-4 sm:px-0">
+          <div className="w-full max-w-none px-4 sm:px-0 hero-container-1205">
             {/* Main Heading */}
             <div
               className="relative"
@@ -117,10 +176,10 @@ const Hero = () => {
               }}
             >
               <h1
-                className={`text-white font-bold leading-tight ${
+                className={`text-white font-bold leading-tight hero-heading-1205 ${
                   isVerySmallScreen
-                    ? "text-4xl"
-                    : "text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[12rem]"
+                    ? "text-3xl"
+                    : "text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[10rem]"
                 }`}
                 style={{
                   lineHeight: "0.9",
@@ -144,22 +203,24 @@ const Hero = () => {
               }}
             >
               <p
-                className={`text-gray-200 max-w-3xl leading-relaxed mb-4 sm:mb-6 md:mb-8 ${
+                className={`text-gray-200 max-w-3xl leading-relaxed mb-4 sm:mb-6 md:mb-8 hero-subtitle-1205 ${
                   isVerySmallScreen
-                    ? "text-sm"
-                    : "text-lg sm:text-xl md:text-2xl lg:text-3xl"
+                    ? "text-xs"
+                    : "text-base sm:text-lg md:text-xl lg:text-2xl"
                 }`}
                 style={{
                   lineHeight: "1.5",
                 }}
               >
                 Syntellite is the smarter way to build tech software, hardware,
-                or both. Turn your ideas into reality with powerful, scalable
-                solutions. No confusion, Just innovation made simple.
+                or both. Turn your ideas into reality with Syntellite.
               </p>
 
               <div className="flex">
-                <button className="bg-white text-black font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 text-sm sm:text-base md:text-lg lg:text-xl px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4">
+                <button
+                  onClick={handleBookMeeting}
+                  className="bg-white text-black font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 text-sm sm:text-base md:text-lg lg:text-xl px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4"
+                >
                   Book a meeting
                 </button>
               </div>
@@ -173,6 +234,7 @@ const Hero = () => {
           style={{
             opacity: Math.max(0, 1 - textScrollProgress),
             zIndex: scrollY < sectionScrollStart ? 20 : -5,
+            display: "none",
           }}
         >
           <div className="animate-bounce">

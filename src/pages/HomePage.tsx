@@ -3,6 +3,8 @@ import Hero from "../components/Hero";
 import BoldIdeasSection from "../components/BoldIdeasSection";
 import OurServices from "../components/OurServices";
 import OurProcess from "../components/OurProcess";
+import WhyChooseSyntellite from "../components/WhyChooseSyntellite";
+import FAQ from "../components/FAQ";
 import SEO from "../components/SEO";
 
 const HomePage = () => {
@@ -19,6 +21,8 @@ const HomePage = () => {
       <BoldIdeasSection />
       <OurServices />
       <OurProcess />
+      <WhyChooseSyntellite />
+      <FAQ />
     </>
   );
 };

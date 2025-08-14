@@ -41,97 +41,105 @@ const AboutPage = () => {
         {/* Main Content */}
         <div className="py-16">
           <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
-              {/* Content */}
-              <div>
-                <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-                  Who We Are
-                </h2>
-                <div className="space-y-6 text-gray-400 text-lg leading-relaxed">
-                  <p>
-                    <span className="text-white font-semibold">
-                      Syntellite Innovations Private Limited
-                    </span>{" "}
-                    is a modern tech company dedicated to turning bold ideas
-                    into engineered realities. Blending the worlds of software
-                    development, electronics, and automation, Syntellite offers
-                    end-to-end solutions that empower individuals and teams to
-                    build real, scalable projects.
-                  </p>
-                  <p>
-                    Whether it's custom software, hardware circuit design, IoT
-                    integrations, or system automation, Syntellite provides the
-                    tools, guidance, and support to make innovation simple and
-                    accessible.
-                  </p>
-                  <p>
-                    Designed as a hands-on innovation lab, it welcomes creators
-                    of all ages—from curious kids to seasoned professionals—to
-                    learn by building.
-                  </p>
+            <div className="mb-20">
+              {/* Who We Are Title */}
+              <h2 className="text-3xl lg:text-4xl font-bold mb-6 lg:mb-0">
+                Who We Are
+              </h2>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                {/* Content - Desktop first, Mobile second */}
+                <div className="order-2 lg:order-1">
+                  <div className="space-y-6 text-gray-400 text-lg leading-relaxed">
+                    <p>
+                      <span className="text-white font-semibold">
+                        Syntellite Innovations Private Limited
+                      </span>{" "}
+                      is a modern tech company dedicated to turning bold ideas
+                      into engineered realities. Blending the worlds of software
+                      development, electronics, and automation, Syntellite offers
+                      end-to-end solutions that empower individuals and teams to
+                      build real, scalable projects.
+                    </p>
+                    <p>
+                      Whether it's custom software, hardware circuit design, IoT
+                      integrations, or system automation, Syntellite provides the
+                      tools, guidance, and support to make innovation simple and
+                      accessible.
+                    </p>
+                    <p>
+                      Designed as a hands-on innovation lab, it welcomes creators
+                      of all ages—from curious kids to seasoned professionals—to
+                      learn by building.
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              {/* About Us Image */}
-              <div className="relative">
-                <div className="relative overflow-hidden rounded-3xl">
-                  <img
-                    src={aboutUsImage}
-                    alt="Syntellite Innovation Lab - Our team working on cutting-edge technology projects"
-                    className="w-full h-auto object-cover rounded-3xl shadow-2xl"
-                  />
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 via-transparent to-blue-500/20 rounded-3xl"></div>
+                {/* About Us Image - Desktop second, Mobile first */}
+                <div className="relative order-1 lg:order-2">
+                  <div className="relative overflow-hidden rounded-3xl">
+                    <img
+                      src={aboutUsImage}
+                      alt="Syntellite Innovation Lab - Our team working on cutting-edge technology projects"
+                      className="w-full h-auto object-cover rounded-3xl shadow-2xl"
+                    />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 via-transparent to-blue-500/20 rounded-3xl"></div>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Board of Directors Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
-              {/* Directors Image */}
-              <div className="relative">
-                <div className="relative overflow-hidden rounded-3xl">
-                  <img
-                    src={directorsImage}
-                    alt="Syntellite Board of Directors - CEO Roshan, COO Prateek, CTO Madhu"
-                    className="w-full h-auto object-cover rounded-3xl shadow-2xl"
-                  />
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-500/20 via-transparent to-purple-500/20 rounded-3xl"></div>
+            <div className="mb-20">
+              {/* Board of Directors Title */}
+              <h2 className="text-3xl lg:text-4xl font-bold mb-6 lg:mb-0">
+                Board of Directors
+              </h2>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                {/* Directors Image - Desktop first, Mobile first */}
+                <div className="relative order-1 lg:order-1">
+                  <div className="relative overflow-hidden rounded-3xl">
+                    <img
+                      src={directorsImage}
+                      alt="Syntellite Board of Directors - CEO Roshan, COO Prateek, CTO Madhu"
+                      className="w-full h-auto object-cover rounded-3xl shadow-2xl"
+                    />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-blue-500/20 via-transparent to-purple-500/20 rounded-3xl"></div>
+                  </div>
                 </div>
-              </div>
 
-              {/* Directors Content */}
-              <div>
-                <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-                  Board of Directors
-                </h2>
-                <div className="space-y-8">
-                  {/* CEO */}
-                  <div className="border-l-4 border-purple-500 pl-6">
-                    <h3 className="text-xl font-bold text-purple-400 mb-2">Roshan</h3>
-                    <p className="text-lg font-semibold text-white mb-2">Chief Executive Officer (CEO)</p>
-                    <p className="text-gray-400 leading-relaxed">
-                      Visionary leader driving Syntellite's strategic direction and innovation initiatives. With extensive experience in technology leadership, Roshan guides the company's mission to turn bold ideas into engineered realities.
-                    </p>
-                  </div>
+                {/* Directors Content - Desktop second, Mobile second */}
+                <div className="order-2 lg:order-2">
+                  <div className="space-y-8">
+                    {/* CEO */}
+                    <div className="border-l-4 border-purple-500 pl-6">
+                      <h3 className="text-xl font-bold text-purple-400 mb-2">Roshan</h3>
+                      <p className="text-lg font-semibold text-white mb-2">Chief Executive Officer (CEO)</p>
+                      <p className="text-gray-400 leading-relaxed">
+                        Visionary leader driving Syntellite's strategic direction and innovation initiatives. With extensive experience in technology leadership, Roshan guides the company's mission to turn bold ideas into engineered realities.
+                      </p>
+                    </div>
 
-                  {/* COO */}
-                  <div className="border-l-4 border-blue-500 pl-6">
-                    <h3 className="text-xl font-bold text-blue-400 mb-2">Prateek</h3>
-                    <p className="text-lg font-semibold text-white mb-2">Chief Operating Officer (COO)</p>
-                    <p className="text-gray-400 leading-relaxed">
-                      Operations excellence expert ensuring seamless project delivery and client satisfaction. Prateek oversees day-to-day operations, process optimization, and team coordination across all departments.
-                    </p>
-                  </div>
+                    {/* COO */}
+                    <div className="border-l-4 border-blue-500 pl-6">
+                      <h3 className="text-xl font-bold text-blue-400 mb-2">Prateek</h3>
+                      <p className="text-lg font-semibold text-white mb-2">Chief Operating Officer (COO)</p>
+                      <p className="text-gray-400 leading-relaxed">
+                        Operations excellence expert ensuring seamless project delivery and client satisfaction. Prateek oversees day-to-day operations, process optimization, and team coordination across all departments.
+                      </p>
+                    </div>
 
-                  {/* CTO */}
-                  <div className="border-l-4 border-pink-500 pl-6">
-                    <h3 className="text-xl font-bold text-pink-400 mb-2">Madhu</h3>
-                    <p className="text-lg font-semibold text-white mb-2">Chief Technology Officer (CTO)</p>
-                    <p className="text-gray-400 leading-relaxed">
-                      Technology architect and innovation catalyst leading Syntellite's technical vision. Madhu spearheads cutting-edge development practices, emerging technology adoption, and technical excellence across all projects.
-                    </p>
+                    {/* CTO */}
+                    <div className="border-l-4 border-pink-500 pl-6">
+                      <h3 className="text-xl font-bold text-pink-400 mb-2">Madhu</h3>
+                      <p className="text-lg font-semibold text-white mb-2">Chief Technology Officer (CTO)</p>
+                      <p className="text-gray-400 leading-relaxed">
+                        Technology architect and innovation catalyst leading Syntellite's technical vision. Madhu spearheads cutting-edge development practices, emerging technology adoption, and technical excellence across all projects.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { TrendingUp } from "lucide-react";
+import { Check, TrendingUp } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function BoldIdeasSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,11 +33,8 @@ export default function BoldIdeasSection() {
   return (
     <div 
       ref={sectionRef}
-      className="bg-black text-white py-16 relative overflow-hidden"
+      className="bg-black text-white py-16 relative"
     >
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-blue-900/20"></div>
-      
       {/* Main Container */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Hero Section */}
@@ -47,57 +45,58 @@ export default function BoldIdeasSection() {
               : 'opacity-0 translate-y-20 scale-95'
           }`}
         >
-          {/* Background Chart - Hidden on mobile */}
+          {/* Success Rate Animation - Hidden on mobile */}
           <div 
             className={`hidden md:block absolute right-8 top-8 opacity-60 transition-all duration-1000 delay-300 ${
-              isVisible ? 'opacity-60 translate-x-0' : 'opacity-0 translate-x-10'
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
             }`}
           >
             <div className="text-xs text-gray-400 mb-2 flex items-center gap-2">
-              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-              DAILY ACTIVE USERS
-              <TrendingUp className="w-3 h-3" />
-              Last 24h
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              PROJECT SUCCESS RATE
             </div>
             <div className="text-2xl font-bold text-white mb-4">
-              5.24k
-              <span className="text-sm text-green-400 ml-2">+24%</span>
+              100%
+              <span className="text-sm text-green-400 ml-2">Guaranteed</span>
             </div>
 
-            {/* Animated Chart Line */}
-            <div className="relative w-64 h-32">
-              <svg viewBox="0 0 300 120" className="w-full h-full">
-                <defs>
-                  <linearGradient
-                    id="gradient"
-                    x1="0%"
-                    y1="0%"
-                    x2="0%"
-                    y2="100%"
-                  >
-                    <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M0,100 Q50,80 100,70 T200,40 T300,30"
-                  stroke="#3B82F6"
-                  strokeWidth="2"
-                  fill="none"
-                  className={`transition-all duration-1000 delay-500 ${
-                    isVisible ? 'opacity-100' : 'opacity-0'
-                  }`}
-                  style={{
-                    strokeDasharray: isVisible ? 'none' : '1000',
-                    strokeDashoffset: isVisible ? '0' : '1000',
-                  }}
+            {/* Circular Progress Bar */}
+            <div className="relative w-32 h-32">
+              <svg className="w-full h-full" viewBox="0 0 100 100">
+                {/* Background circle */}
+                <circle
+                  className="text-gray-700"
+                  strokeWidth="10"
+                  stroke="currentColor"
+                  fill="transparent"
+                  r="45"
+                  cx="50"
+                  cy="50"
                 />
-                <path
-                  d="M0,100 Q50,80 100,70 T200,40 T300,30 L300,120 L0,120 Z"
-                  fill="url(#gradient)"
-                  className={`transition-all duration-1000 delay-700 ${
-                    isVisible ? 'opacity-100' : 'opacity-0'
-                  }`}
+                {/* Progress circle */}
+                <motion.circle
+                  className="text-green-500"
+                  strokeWidth="10"
+                  strokeLinecap="round"
+                  stroke="currentColor"
+                  fill="transparent"
+                  r="45"
+                  cx="50"
+                  cy="50"
+                  initial={{ strokeDashoffset: 283 }}
+                  animate={{ strokeDashoffset: isVisible ? 0 : 283 }}
+                  transition={{ duration: 2, ease: "easeOut", delay: 0.5 }}
+                  style={{ strokeDasharray: 283 }}
+                />
+                {/* Checkmark */}
+                <motion.path
+                  d="M30 50 L45 65 L70 40"
+                  stroke="white"
+                  strokeWidth="8"
+                  fill="transparent"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: isVisible ? 1 : 0, opacity: isVisible ? 1 : 0 }}
+                  transition={{ duration: 0.5, ease: "easeOut", delay: 2 }}
                 />
               </svg>
             </div>
@@ -135,23 +134,6 @@ export default function BoldIdeasSection() {
             </p>
           </div>
 
-          {/* Floating particles effect */}
-          <div className="absolute inset-0 pointer-events-none">
-            {[...Array(6)].map((_, i) => (
-              <div
-                key={i}
-                className={`absolute w-1 h-1 bg-blue-400 rounded-full animate-pulse transition-all duration-1000 delay-${(i + 1) * 200} ${
-                  isVisible ? 'opacity-30' : 'opacity-0'
-                }`}
-                style={{
-                  left: `${20 + (i * 15)}%`,
-                  top: `${30 + (i * 10)}%`,
-                  animationDelay: `${i * 0.5}s`,
-                  animationDuration: `${3 + (i * 0.5)}s`,
-                }}
-              />
-            ))}
-          </div>
         </div>
       </div>
     </div>

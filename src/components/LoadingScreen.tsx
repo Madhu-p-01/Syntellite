@@ -23,31 +23,15 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
     // Preload critical resources
     const preloadResources = async () => {
       const resources = [
-        // Preload video
-        new Promise<void>((resolve) => {
-          const video = document.createElement('video');
-          video.preload = 'auto';
-          video.oncanplaythrough = () => {
-            setLoadingProgress(prev => prev + 50);
-            resolve();
-          };
-          video.onerror = () => {
-            console.warn('Video preload failed, continuing...');
-            setLoadingProgress(prev => prev + 50);
-            resolve();
-          };
-          video.src = DesktopVideo;
-        }),
-        
         // Preload favicon
         new Promise<void>((resolve) => {
           const img = new Image();
           img.onload = () => {
-            setLoadingProgress(prev => prev + 25);
+            setLoadingProgress(prev => prev + 50);
             resolve();
           };
           img.onerror = () => {
-            setLoadingProgress(prev => prev + 25);
+            setLoadingProgress(prev => prev + 50);
             resolve();
           };
           img.src = favIcon;
@@ -56,7 +40,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
         // Simulate other critical resources loading
         new Promise<void>((resolve) => {
           setTimeout(() => {
-            setLoadingProgress(prev => prev + 25);
+            setLoadingProgress(prev => prev + 50);
             resolve();
           }, 500);
         })

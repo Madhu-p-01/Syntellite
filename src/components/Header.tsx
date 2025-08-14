@@ -60,7 +60,7 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { handleSamePageNavigation } = useNavigation();
+  const { handleSamePageNavigation, handleNavigation } = useNavigation();
   const navigate = useNavigate();
   const [isScrolling, setIsScrolling] = useState(false);
   const [touchStartY, setTouchStartY] = useState(0);
@@ -106,7 +106,7 @@ const Header: React.FC = () => {
   return (
     <>
       {/* Main Navigation */}
-      <header className="bg-black/95 backdrop-blur-md border border-gray-800 fixed top-4 left-4 right-4 z-[9999] rounded-[30px] shadow-2xl">
+      <header className="bg-black/95 backdrop-blur-md border-b border-gray-800 shadow-2xl lg:fixed lg:top-0 lg:left-0 lg:right-0 lg:z-[9999]">
         <div className="w-full px-6 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-20 max-w-none">
             {/* Logo - Left Side */}
@@ -118,6 +118,15 @@ const Header: React.FC = () => {
 
             {/* Desktop Navigation - Center */}
             <nav className="hidden lg:flex items-center space-x-8">
+              {/* Home Link */}
+              <Link
+                to="/"
+                onClick={() => handleSamePageNavigation("/")}
+                className="text-white hover:text-gray-300 transition-colors"
+              >
+                Home
+              </Link>
+
               {/* Services Dropdown */}
               <div className="relative" ref={dropdownRef}>
                 <button
@@ -133,14 +142,14 @@ const Header: React.FC = () => {
                 </button>
                 {activeDropdown === "Services" && (
                   <div
-                    className="fixed left-[15%] top-28 transform -translate-x-1/2 w-[1200px] bg-black/95 backdrop-blur-sm border border-gray-800 rounded-3xl shadow-2xl z-60"
+                    className="fixed left-0 top-20 w-full bg-black/95 backdrop-blur-sm border-y border-gray-800 shadow-2xl z-60"
                     style={{
                       animation: "dropdownSlide 0.2s ease-out forwards",
                       transformOrigin: "top center",
                     }}
                   >
-                    <div className="p-8">
-                      <div className="grid grid-cols-4 gap-8">
+                    <div className="p-8 max-w-7xl mx-auto">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {/* BUILD Column */}
                         <div>
                           <h3 className="text-gray-400 text-xs uppercase tracking-wider mb-6 font-semibold">
@@ -157,12 +166,12 @@ const Header: React.FC = () => {
                             >
                               <Monitor className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
-                                  Web development
-                                </div>
-                                <div className="text-gray-400 text-sm">
-                                  Build for high-performing businesses
-                                </div>
+                              <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
+                                Web development
+                              </div>
+                              <div className="text-gray-400 text-xs">
+                                Build for high-performing businesses
+                              </div>
                               </div>
                             </Link>
 
@@ -176,10 +185,10 @@ const Header: React.FC = () => {
                             >
                               <Smartphone className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   App development
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Apps for android, iOS & web
                                 </div>
                               </div>
@@ -195,10 +204,10 @@ const Header: React.FC = () => {
                             >
                               <ShoppingCart className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   ECommerce Solutions
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Shopify, Woocommerce & Custom
                                 </div>
                               </div>
@@ -214,13 +223,13 @@ const Header: React.FC = () => {
                             >
                               <CreditCard className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300 flex items-center gap-2">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 flex items-center gap-2 text-sm">
                                   Payment Gateway
                                   <span className="bg-purple-600 text-white text-xs px-2 py-0.5 rounded-full">
                                     NEW
                                   </span>
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Razorpay, Easebuzz, PayPal & More
                                 </div>
                               </div>
@@ -258,10 +267,10 @@ const Header: React.FC = () => {
                             >
                               <Globe className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   Progressive Web Apps
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Native app experience on web
                                 </div>
                               </div>
@@ -285,10 +294,10 @@ const Header: React.FC = () => {
                             >
                               <Code className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   Software Development
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Custom software for your business
                                 </div>
                               </div>
@@ -307,10 +316,10 @@ const Header: React.FC = () => {
                             >
                               <Server className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   API & Microservices
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Host and scale without the hassle
                                 </div>
                               </div>
@@ -329,10 +338,10 @@ const Header: React.FC = () => {
                             >
                               <Brain className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   AI and Automation
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Automate tasks with AI and ML
                                 </div>
                               </div>
@@ -351,10 +360,10 @@ const Header: React.FC = () => {
                             >
                               <Package className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   White Label Solutions
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Custom solutions for your brand
                                 </div>
                               </div>
@@ -372,10 +381,10 @@ const Header: React.FC = () => {
                             >
                               <Cloud className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   SAAS
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Build and scale your SaaS product
                                 </div>
                               </div>
@@ -394,10 +403,10 @@ const Header: React.FC = () => {
                             >
                               <Cog className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   System Integration
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Connect and integrate systems
                                 </div>
                               </div>
@@ -424,13 +433,13 @@ const Header: React.FC = () => {
                             >
                               <PenTool className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300 flex items-center gap-2">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 flex items-center gap-2 text-sm">
                                   UI/UX Design
                                   <span className="bg-purple-600 text-white text-xs px-2 py-0.5 rounded-full">
                                     NEW
                                   </span>
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Design that drives engagement
                                 </div>
                               </div>
@@ -474,10 +483,10 @@ const Header: React.FC = () => {
                             >
                               <Cpu className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   Software + Hardware Development
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Code Controls Hardware
                                 </div>
                               </div>
@@ -495,10 +504,10 @@ const Header: React.FC = () => {
                             >
                               <FlaskConical className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   R&D and Prototyping
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Rapid prototyping for your ideas
                                 </div>
                               </div>
@@ -516,11 +525,11 @@ const Header: React.FC = () => {
                             >
                               <CircuitBoard className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
-                                  PCB and Hardware Design
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
+                                  PCB Hardware Design
                                 </div>
-                                <div className="text-gray-400 text-sm">
-                                  Design and prototype your hardware
+                                <div className="text-gray-400 text-xs">
+                                  Custom PCB design and development
                                 </div>
                               </div>
                             </Link>
@@ -538,11 +547,11 @@ const Header: React.FC = () => {
                             >
                               <GitBranch className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   DevOps CI/CD
                                 </div>
-                                <div className="text-gray-400 text-sm">
-                                  Automated deployment pipelines
+                                <div className="text-gray-400 text-xs">
+                                  Streamline deployment and operations
                                 </div>
                               </div>
                             </Link>
@@ -568,10 +577,10 @@ const Header: React.FC = () => {
                             >
                               <Search className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   SEO
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Optimize your site for search engines
                                 </div>
                               </div>
@@ -590,10 +599,10 @@ const Header: React.FC = () => {
                             >
                               <Megaphone className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   Digital Marketing
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Grow with digital marketing
                                 </div>
                               </div>
@@ -612,13 +621,13 @@ const Header: React.FC = () => {
                             >
                               <FileText className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300 flex items-center gap-2">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 flex items-center gap-2 text-sm">
                                   Content Creation
                                   <span className="bg-purple-600 text-white text-xs px-2 py-0.5 rounded-full">
                                     NEW
                                   </span>
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-gray-400 text-xs">
                                   Engage audience with quality content
                                 </div>
                               </div>
@@ -685,11 +694,11 @@ const Header: React.FC = () => {
                             >
                               <PieChart className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                               <div>
-                                <div className="text-white font-medium group-hover/item:text-gray-300">
+                                <div className="text-white font-medium group-hover/item:text-gray-300 text-sm">
                                   Data Analytics
                                 </div>
-                                <div className="text-gray-400 text-sm">
-                                  Business intelligence and insights
+                                <div className="text-gray-400 text-xs">
+                                  Make data-driven decisions
                                 </div>
                               </div>
                             </Link>
@@ -774,15 +783,23 @@ const Header: React.FC = () => {
                 Contact Us
               </Link>
 
+              {/* Labs Link */}
+              <Link
+                to="/labs-careers-coming-soon"
+                onClick={() => handleSamePageNavigation("/labs-careers-coming-soon")}
+                className="text-white hover:text-gray-300 transition-colors"
+              >
+                Labs
+              </Link>
+
               {/* Careers Link */}
-              <a
-                href="https://labs.syntellite.com"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/labs-careers-coming-soon"
+                onClick={() => handleSamePageNavigation("/labs-careers-coming-soon")}
                 className="text-white hover:text-gray-300 transition-colors"
               >
                 Careers
-              </a>
+              </Link>
             </nav>
 
             {/* Right Side Actions */}
@@ -832,1105 +849,30 @@ const Header: React.FC = () => {
           {isMenuOpen && (
             <div className="lg:hidden border-t border-gray-800">
               <div className="px-2 pt-2 pb-3 space-y-1">
-                {/* Services Mobile */}
-                <div>
-                  <div className="flex items-center">
-                    <Link
-                      to="/services"
-                      onClick={() => {
-                        setIsMenuOpen(false);
-                        setActiveDropdown(null);
-                        handleSamePageNavigation("/services");
-                      }}
-                      className="flex-1 px-3 py-2 text-white hover:text-gray-300"
-                    >
-                      Services
-                    </Link>
-                    <button
-                      onClick={() => handleDropdownToggle("Services")}
-                      className="px-3 py-2 text-white hover:text-gray-300"
-                    >
-                      <ChevronDown
-                        className={`h-4 w-4 transition-transform ${
-                          activeDropdown === "Services" ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
-                  </div>
-                  {activeDropdown === "Services" && (
-                    <div
-                      className="pl-6 space-y-2 mobile-dropdown"
-                      onTouchMove={(e) => e.stopPropagation()}
-                      onWheel={(e) => e.stopPropagation()}
-                      onScroll={(e) => e.stopPropagation()}
-                    >
-                      {/* Getting Started */}
-                      <Link
-                        to="/services"
-                        onClick={() => {
-                          setActiveDropdown(null);
-                          setIsMenuOpen(false);
-                          handleSamePageNavigation("/services");
-                        }}
-                        className="flex items-center gap-3 px-3 py-2 text-purple-400 hover:text-white rounded-lg hover:bg-gray-800/50"
-                      >
-                        <Play className="w-4 h-4" />
-                        Getting Started
-                      </Link>
+                {/* Home Link */}
+                <Link
+                  to="/"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    setActiveDropdown(null);
+                    handleSamePageNavigation("/");
+                  }}
+                  className="block px-3 py-2 text-white hover:text-gray-300"
+                >
+                  Home
+                </Link>
 
-                      {/* Web and Apps Solutions */}
-                      <div className="pt-2">
-                        <div className="text-xs uppercase tracking-wider text-gray-500 font-medium px-3 py-1">
-                          Web and Apps Solutions
-                        </div>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/web-development");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/web-development");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Monitor className="w-4 h-4" />
-                          Web Development
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/app-development");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/app-development");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Smartphone className="w-4 h-4" />
-                          App Development
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/ecommerce-solutions");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/ecommerce-solutions");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <ShoppingCart className="w-4 h-4" />
-                          ECommerce Solutions
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/payment-gateway");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/payment-gateway");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <CreditCard className="w-4 h-4" />
-                          <span className="flex items-center gap-2">
-                            Payment Gateway
-                            <span className="bg-purple-600 text-white text-xs px-1.5 py-0.5 rounded-full">
-                              NEW
-                            </span>
-                          </span>
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/payment-orchestration");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/payment-orchestration");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Workflow className="w-4 h-4" />
-                          <span className="flex items-center gap-2">
-                            Payment Orchestration
-                            <span className="bg-purple-600 text-white text-xs px-1.5 py-0.5 rounded-full">
-                              NEW
-                            </span>
-                          </span>
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/progressive-web-apps");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/progressive-web-apps");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Globe className="w-4 h-4" />
-                          Progressive Web Apps
-                        </button>
-                      </div>
-
-                      {/* Engineering and AI */}
-                      <div className="pt-2">
-                        <div className="text-xs uppercase tracking-wider text-gray-500 font-medium px-3 py-1">
-                          Engineering and AI
-                        </div>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/software-development");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/software-development");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Code className="w-4 h-4" />
-                          Software Development
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/api-microservices");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/api-microservices");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Server className="w-4 h-4" />
-                          API & Microservices
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/ai-automation");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/ai-automation");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Brain className="w-4 h-4" />
-                          AI and Automation
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/white-label-solutions");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/white-label-solutions");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Shield className="w-4 h-4" />
-                          White Label Solutions
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/saas-development");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/saas-development");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Database className="w-4 h-4" />
-                          SaaS Development
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/system-integration");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/system-integration");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Settings className="w-4 h-4" />
-                          System Integration
-                        </button>
-                      </div>
-
-                      {/* Build, Design and DevOps */}
-                      <div className="pt-2">
-                        <div className="text-xs uppercase tracking-wider text-gray-500 font-medium px-3 py-1">
-                          Build, Design and DevOps
-                        </div>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/ui-ux-design");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/ui-ux-design");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Palette className="w-4 h-4" />
-                          <span className="flex items-center gap-2">
-                            UI/UX Design
-                            <span className="bg-purple-600 text-white text-xs px-1.5 py-0.5 rounded-full">
-                              NEW
-                            </span>
-                          </span>
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/cloud-operations");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/cloud-operations");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Target className="w-4 h-4" />
-                          <span className="flex items-center gap-2">
-                            Cloud Operations
-                            <span className="bg-purple-600 text-white text-xs px-1.5 py-0.5 rounded-full">
-                              NEW
-                            </span>
-                          </span>
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate(
-                                  "/services/software-hardware-development"
-                                );
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate(
-                                  "/services/software-hardware-development"
-                                );
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Wrench className="w-4 h-4" />
-                          Software + Hardware
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/rd-prototyping");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/rd-prototyping");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Lightbulb className="w-4 h-4" />
-                          R&D and Prototyping
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/pcb-hardware-design");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/pcb-hardware-design");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Search className="w-4 h-4" />
-                          PCB Hardware Design
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/devops-cicd");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/devops-cicd");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <CloudLightning className="w-4 h-4" />
-                          DevOps CI/CD
-                        </button>
-                      </div>
-
-                      {/* Growth Strategy and Consulting */}
-                      <div className="pt-2">
-                        <div className="text-xs uppercase tracking-wider text-gray-500 font-medium px-3 py-1">
-                          Growth Strategy and Consulting
-                        </div>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/seo-optimization");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/seo-optimization");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Puzzle className="w-4 h-4" />
-                          SEO Optimization
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/digital-marketing");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/digital-marketing");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Figma className="w-4 h-4" />
-                          Digital Marketing
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/content-creation");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/content-creation");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <CloudLightning className="w-4 h-4" />
-                          <span className="flex items-center gap-2">
-                            Content Creation
-                            <span className="bg-purple-600 text-white text-xs px-1.5 py-0.5 rounded-full">
-                              NEW
-                            </span>
-                          </span>
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/mvp-development");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/mvp-development");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <TrendingUp className="w-4 h-4" />
-                          <span className="flex items-center gap-2">
-                            MVP Development
-                            <span className="bg-purple-600 text-white text-xs px-1.5 py-0.5 rounded-full">
-                              NEW
-                            </span>
-                          </span>
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/consulting-strategy");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/consulting-strategy");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <Briefcase className="w-4 h-4" />
-                          <span className="flex items-center gap-2">
-                            Consulting & Strategy
-                            <span className="bg-purple-600 text-white text-xs px-1.5 py-0.5 rounded-full">
-                              NEW
-                            </span>
-                          </span>
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/data-analytics");
-                              }, 100);
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            setTouchStartY(e.touches[0].clientY);
-                            setIsScrolling(false);
-                          }}
-                          onTouchMove={(e) => {
-                            const touchY = e.touches[0].clientY;
-                            const diff = Math.abs(touchY - touchStartY);
-                            if (diff > 10) {
-                              setIsScrolling(true);
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            if (!isScrolling) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setActiveDropdown(null);
-                              setIsMenuOpen(false);
-                              setTimeout(() => {
-                                navigate("/services/data-analytics");
-                              }, 100);
-                            }
-                            setTimeout(() => setIsScrolling(false), 100);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 w-full text-left cursor-pointer"
-                          style={{ WebkitTapHighlightColor: "transparent" }}
-                        >
-                          <BarChart3 className="w-4 h-4" />
-                          Data Analytics
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
+                {/* Services Mobile - External Link */}
+                <a
+                  href="https://938c4650eed5.ngrok-free.app/services"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    setActiveDropdown(null);
+                  }}
+                  className="block px-3 py-2 text-white hover:text-gray-300"
+                >
+                  Services
+                </a>
 
                 <Link
                   to="/about"
@@ -1954,18 +896,28 @@ const Header: React.FC = () => {
                 >
                   Contact Us
                 </Link>
-                <a
-                  href="https://labs.syntellite.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to="/labs-careers-coming-soon"
                   onClick={() => {
                     setIsMenuOpen(false);
                     setActiveDropdown(null);
+                    handleSamePageNavigation("/labs-careers-coming-soon");
+                  }}
+                  className="block px-3 py-2 text-white hover:text-gray-300"
+                >
+                  Labs
+                </Link>
+                <Link
+                  to="/labs-careers-coming-soon"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    setActiveDropdown(null);
+                    handleSamePageNavigation("/labs-careers-coming-soon");
                   }}
                   className="block px-3 py-2 text-white hover:text-gray-300"
                 >
                   Careers
-                </a>
+                </Link>
 
                 {/* Mobile Actions */}
                 <div className="pt-4 space-y-2">

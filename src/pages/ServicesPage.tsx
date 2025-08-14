@@ -95,13 +95,13 @@ const ServicesPage = () => {
               </div>
             </a>
 
-            <a href="/contact" className="group">
+            <a href="/book-meeting" className="group">
               <div className="h-full p-6 bg-gradient-to-br from-pink-600/10 to-pink-800/10 border border-pink-600/20 rounded-xl hover:border-pink-400/40 transition-all duration-300">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-2 bg-pink-600/20 rounded-lg">
                     <TrendingUp className="w-5 h-5 text-pink-400" />
                   </div>
-                  <h3 className="text-lg font-semibold text-white">Free Consultation</h3>
+                  <h3 className="text-lg font-semibold text-white">Book a free consultation</h3>
                 </div>
                 <p className="text-gray-400 mb-4">
                   Get expert advice on technology stack, architecture, and strategic project planning at no cost.
@@ -233,11 +233,11 @@ const ServicesPage = () => {
                 Get expert consultation on your project requirements.
               </p>
               <a
-                href="/contact"
+                href="/book-meeting"
                 className="inline-flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors font-medium text-sm"
               >
                 <Users className="w-4 h-4" />
-                Free Consultation
+                Book a free consultation
               </a>
             </div>
           </div>
