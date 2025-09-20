@@ -862,17 +862,18 @@ const Header: React.FC = () => {
                   Home
                 </Link>
 
-                {/* Services Mobile - External Link */}
-                <a
-                  href="https://938c4650eed5.ngrok-free.app/services"
+                {/* Services Mobile - Fixed to use relative path */}
+                <Link
+                  to="/services"
                   onClick={() => {
                     setIsMenuOpen(false);
                     setActiveDropdown(null);
+                    handleSamePageNavigation("/services");
                   }}
                   className="block px-3 py-2 text-white hover:text-gray-300"
                 >
                   Services
-                </a>
+                </Link>
 
                 <Link
                   to="/about"

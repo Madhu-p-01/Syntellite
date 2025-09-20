@@ -8,6 +8,7 @@ const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     project: '',
     message: ''
   });
@@ -33,7 +34,7 @@ const ContactPage = () => {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
       setSubmitStatus('error');
       return;
     }
@@ -46,7 +47,7 @@ const ContactPage = () => {
       
       if (success) {
         setSubmitStatus('success');
-        setFormData({ name: '', email: '', project: '', message: '' });
+        setFormData({ name: '', email: '', phone: '', project: '', message: '' });
       } else {
         setSubmitStatus('error');
       }
@@ -58,7 +59,7 @@ const ContactPage = () => {
         console.warn('Google Sheets not configured. Form data logged to console for development.');
         console.log('Form submission data:', formData);
         setSubmitStatus('success'); // Show success in development
-        setFormData({ name: '', email: '', project: '', message: '' });
+        setFormData({ name: '', email: '', phone: '', project: '', message: '' });
       } else {
         setSubmitStatus('error');
       }
@@ -134,6 +135,23 @@ const ContactPage = () => {
                       onChange={handleInputChange}
                       className="w-full bg-white/5 border border-gray-600 rounded-xl py-4 px-4 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all"
                       placeholder="your.email@example.com"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="phone"
+                      className="block text-gray-300 mb-3 font-medium"
+                    >
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full bg-white/5 border border-gray-600 rounded-xl py-4 px-4 text-white placeholder-gray-400 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400/20 transition-all"
+                      placeholder="+91 99999 99999"
                       required
                     />
                   </div>

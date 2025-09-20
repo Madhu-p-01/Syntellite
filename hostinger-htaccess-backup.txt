@@ -1,0 +1,33 @@
+# HOSTINGER SPECIFIC .htaccess FOR SPA ROUTING
+# Copy this content to .htaccess file in your public_html directory
+
+RewriteEngine On
+RewriteBase /
+
+# Handle SPA routing for React Router
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.html [L]
+
+# Alternative fallback method
+<IfModule mod_rewrite.c>
+    Options -MultiViews
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.html [QSA,L]
+</IfModule>
+
+# Error document fallback
+ErrorDocument 404 /index.html
+
+# MIME types
+AddType application/javascript .js
+AddType text/css .css
+AddType image/svg+xml .svg
+
+# If the above doesn't work, try this minimal version:
+# RewriteEngine On
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule . /index.html [L]
+# ErrorDocument 404 /index.html
