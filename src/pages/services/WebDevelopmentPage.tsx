@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SEO from '../../components/SEO';
 import ServicesLayout from '../../components/ServicesLayout';
+import { trackServicePageView } from '../../lib/analytics';
 import { 
   Code, 
   ArrowRight,
@@ -19,6 +20,10 @@ import {
 } from 'lucide-react';
 
 const WebDevelopmentPage = () => {
+  useEffect(() => {
+    trackServicePageView('Web Development');
+  }, []);
+
   return (
     <>
       <SEO

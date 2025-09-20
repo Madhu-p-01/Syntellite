@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
@@ -47,10 +46,32 @@ import {
 } from "./contexts/NavigationContext";
 import { motion } from "framer-motion";
 import SmoothScrollProvider from "./components/SmoothScrollProvider";
+import CookieConsent from "./components/CookieConsent";
+import { initializeGA, trackPageView, hasAnalyticsConsent, debugAnalytics } from "./lib/analytics";
 
 const AppContent: React.FC = () => {
   const { isNavigating } = useNavigation();
   const location = useLocation();
+
+  // Track page views when location changes
+  useEffect(() => {
+    // Initialize GA if user has already given consent
+    if (hasAnalyticsConsent()) {
+      initializeGA();
+    }
+
+    // Debug analytics in development
+    debugAnalytics();
+  }, []);
+
+  // Track page changes
+  useEffect(() => {
+    if (hasAnalyticsConsent()) {
+      const path = location.pathname + location.search;
+      const title = document.title;
+      trackPageView(path, title);
+    }
+  }, [location]);
 
   return (
     <div className="relative min-h-screen bg-[--main-dark-bg] overflow-hidden">
@@ -173,6 +194,7 @@ const AppContent: React.FC = () => {
         <Footer />
       </div>
       {isNavigating && <NavigationLoader />}
+      <CookieConsent />
     </div>
   );
 };

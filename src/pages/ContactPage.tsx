@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import SEO from "../components/SEO";
 import { Phone, Mail, MapPin, MessageCircle, Clock, Users, CheckCircle, AlertCircle } from "lucide-react";
 import { simpleGoogleSheetsService, ContactFormData } from "../lib/googleSheetsSimple";
+import { trackContactFormSubmission, trackBookMeetingClick } from "../lib/analytics";
 
 const ContactPage = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -48,6 +49,8 @@ const ContactPage = () => {
       if (success) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', phone: '', project: '', message: '' });
+        // Track successful form submission
+        trackContactFormSubmission(formData);
       } else {
         setSubmitStatus('error');
       }
@@ -336,6 +339,7 @@ const ContactPage = () => {
                   <div className="flex justify-center">
                     <a
                       href="/book-meeting"
+                      onClick={() => trackBookMeetingClick('Contact Page CTA')}
                       className="inline-flex items-center gap-3 bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] font-semibold text-base"
                     >
                       <Users className="w-5 h-5" />
